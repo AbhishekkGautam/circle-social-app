@@ -37,6 +37,9 @@ export const signupHandler = function (schema, request) {
       username,
       password,
       ...rest,
+      avatar: "",
+      bio: "",
+      portfolio: "",
       followers: [],
       following: [],
       bookmarks: [],
@@ -65,23 +68,21 @@ export const signupHandler = function (schema, request) {
  * */
 
 export const loginHandler = function (schema, request) {
-  const { username, password } = JSON.parse(request.requestBody);
+  const { email, password } = JSON.parse(request.requestBody);
   try {
-    const foundUser = schema.users.findBy({ username: username });
+    const foundUser = schema.users.findBy({ email: email });
     if (!foundUser) {
       return new Response(
         404,
         {},
         {
-          errors: [
-            "The username you entered is not Registered. Not Found error",
-          ],
+          errors: ["The email you entered is not Registered. Not Found error"],
         }
       );
     }
     if (password === foundUser.password) {
       const encodedToken = sign(
-        { _id: foundUser._id, username },
+        { _id: foundUser._id, email },
         process.env.REACT_APP_JWT_SECRET
       );
       return new Response(200, {}, { foundUser, encodedToken });
