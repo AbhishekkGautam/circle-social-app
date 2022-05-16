@@ -1,25 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import {
   DotsHorizontalIcon,
   PencilIcon,
   TrashIcon,
 } from "@heroicons/react/outline";
+import { useCheckIfClickedOutside } from "../../hooks";
 
 export const OptionsModal = () => {
   const [showOptionsModal, setShowOptionsModal] = useState(false);
   const ref = useRef();
-  useEffect(() => {
-    const checkIfClickedOutside = e => {
-      if (showOptionsModal && ref.current && !ref.current.contains(e.target)) {
-        setShowOptionsModal(false);
-      }
-    };
-    document.addEventListener("mousedown", checkIfClickedOutside);
 
-    return () => {
-      document.removeEventListener("mousedown", checkIfClickedOutside);
-    };
-  }, [showOptionsModal]);
+  useCheckIfClickedOutside(showOptionsModal, ref, setShowOptionsModal);
 
   return (
     <div className="relative" ref={ref}>
