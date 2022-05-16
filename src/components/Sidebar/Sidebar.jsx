@@ -1,16 +1,29 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { SidebarLink } from "./SidebarLink";
 import {
   HashtagIcon,
   BookmarkIcon,
   HomeIcon,
   UserIcon,
-  DotsHorizontalIcon,
+  LogoutIcon,
 } from "@heroicons/react/outline";
 import { PostModal } from "../Modals/PostModal";
+import { logOut } from "../../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 export const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logOutHandler = () => {
+    dispatch(logOut());
+    navigate("/login");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+  };
+
   return (
     <>
       <div className="hidden sm:flex flex-col items-center xl:items-start xl:w-[320px] p-2 fixed h-full ">
@@ -39,17 +52,14 @@ export const Sidebar = () => {
         >
           Tweet
         </button>
-        <div className="text-[#d9d9d9] flex items-center justify-center hoverAnimation xl:ml-auto xl:-mr-5 mt-auto">
-          <img
-            src="https://i.pravatar.cc/300?img=11"
-            alt="avatar"
-            className="h-10 w-10 rounded-full xl:mr-2.5"
-          />
-          <div className="hidden xl:inline leading-5">
-            <h4 className="font-bold">John Sharma</h4>
-            <p className="text-[#6e767d]">@johnSharma</p>
+        <div
+          className="text-[#d9d9d9] flex items-center justify-center hoverAnimation mt-auto mx-auto mb-4"
+          onClick={logOutHandler}
+        >
+          <div className="flex items-center space-x-4 px-3 text-[#d9d9d9]">
+            <LogoutIcon className="h-6" />
+            <h4 className="text-[18px] hidden xl:inline">Log out</h4>
           </div>
-          <DotsHorizontalIcon className="h-5 hidden xl:inline ml-10" />
         </div>
       </div>
       {isOpen && <PostModal isOpen={isOpen} setIsOpen={setIsOpen} />}
