@@ -11,6 +11,8 @@ export const Signup = () => {
     password: "",
   });
 
+  const [formError, setFormError] = useState("");
+
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isPasswordMatched, setIsPasswordMatched] = useState(true);
   const { firstName, lastName, email, password } = formData;
@@ -29,14 +31,16 @@ export const Signup = () => {
 
   const submitSignupFormData = () => {
     if (
-      firstName !== "" &&
-      lastName !== "" &&
-      email !== "" &&
-      password !== "" &&
+      firstName.trim() !== "" &&
+      lastName.trim() !== "" &&
+      email.trim() !== "" &&
+      password.trim() !== "" &&
       isPasswordMatched
     ) {
       let username = email.split("@")[0];
       dispatch(signupUser({ ...formData, username: username }));
+    } else {
+      setFormError("Spaces are not valid input.");
     }
   };
 
@@ -47,19 +51,20 @@ export const Signup = () => {
           <h2 className="text-2xl sm:text-3xl font-bold text-center pb-12">
             Join Circle today
           </h2>
-          {authError && <div className="text-red-500">{authError}</div>}
           <form
             className="flex flex-col space-y-5"
             onSubmit={e => e.preventDefault()}
           >
+            {authError && <div className="text-red-500">{authError}</div>}
+            {formError && <div className="text-red-500">{formError}</div>}
             <input
               type="text"
               placeholder="First name"
               required
               value={formData.firstName}
-              onChange={e =>
-                setFormData({ ...formData, firstName: e.target.value })
-              }
+              onChange={e => {
+                setFormData({ ...formData, firstName: e.target.value });
+              }}
               className="border border-gray-300 w-full p-2 rounded-[4px]"
             />
             <input
