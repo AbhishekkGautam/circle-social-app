@@ -50,7 +50,6 @@ export const Input = () => {
               <Picker
                 onSelect={addEmoji}
                 style={{
-                  // backgroundColor: "#151F2B",
                   position: "absolute",
                   marginTop: "465px",
                   marginLeft: -40,
