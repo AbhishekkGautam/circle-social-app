@@ -46,10 +46,18 @@ export const users = [
     password: "admin@123",
     createdAt: formatDate(),
     updatedAt: formatDate(),
-    avatar: "https://joeschmoe.io/api/v1/joe",
+    avatar: "https://joeschmoe.io/api/v1/jai",
     bio: "",
     portfolio: "",
-    following: [],
+    following: [
+      {
+        _id: uuid(),
+        firstName: "Adarsh",
+        lastName: "Balika",
+        username: "adarshbalika",
+        avatar: "https://joeschmoe.io/api/v1/jeane",
+      },
+    ],
     followers: [
       {
         _id: uuid(),
