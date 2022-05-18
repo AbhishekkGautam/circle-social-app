@@ -49,15 +49,13 @@ export function makeServer({ environment = "development" } = {}) {
     // Runs on the start of the server
     seeds(server) {
       server.logging = false;
-      users.forEach((item) =>
+      users.forEach(item =>
         server.create("user", {
           ...item,
-          followers: [],
-          following: [],
           bookmarks: [],
         })
       );
-      posts.forEach((item) => server.create("post", { ...item }));
+      posts.forEach(item => server.create("post", { ...item }));
     },
 
     routes() {

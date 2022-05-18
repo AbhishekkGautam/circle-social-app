@@ -10,19 +10,22 @@ export const posts = [
   {
     _id: uuid(),
     content:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
+      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate.",
     likes: {
-      likeCount: 0,
+      likeCount: 4,
       likedBy: [],
       dislikedBy: [],
     },
+    firstName: "Adarsh",
+    lastName: "Balika",
+    avatar: "https://joeschmoe.io/api/v1/jeane",
     username: "adarshbalika",
-    createdAt: formatDate(),
+    createdAt: new Date("May 14 2022 10:02:30"),
     updatedAt: formatDate(),
     comments: [
       {
         _id: uuid(),
-        username: "shubhamsoni",
+        username: "abhishekgautam",
         text: "Interesting",
         votes: {
           upvotedBy: [],
@@ -31,7 +34,7 @@ export const posts = [
       },
       {
         _id: uuid(),
-        username: "sohamshah",
+        username: "adminkumar",
         text: "Wow!",
         votes: {
           upvotedBy: [],
@@ -43,18 +46,20 @@ export const posts = [
   {
     _id: uuid(),
     content:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
+      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati",
     likes: {
-      likeCount: 0,
+      likeCount: 1,
       likedBy: [],
       dislikedBy: [],
     },
-    username: "shubhamsoni",
-
+    firstName: "Admin",
+    lastName: "Kumar",
+    username: "adminkumar",
+    avatar: "https://joeschmoe.io/api/v1/joe",
     comments: [
       {
         _id: uuid(),
-        username: "shubhamsoni",
+        username: "adarshbalika",
         text: "Interesting",
         votes: {
           upvotedBy: [],
@@ -63,7 +68,7 @@ export const posts = [
       },
       {
         _id: uuid(),
-        username: "sohamshah",
+        username: "abhishekgautam",
         text: "Wow!",
         votes: {
           upvotedBy: [],
@@ -71,7 +76,7 @@ export const posts = [
         },
       },
     ],
-    createdAt: formatDate(),
+    createdAt: new Date("May 16 2022 16:02:30"),
     updatedAt: formatDate(),
   },
 ];
