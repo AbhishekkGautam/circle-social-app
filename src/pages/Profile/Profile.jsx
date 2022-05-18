@@ -20,12 +20,12 @@ export const Profile = () => {
           Profile
         </div>
         <ProfileCard />
-        <div className="pb-72">
+        {/* <div className="pb-72">
           <Post />
           <Post />
           <Post />
           <Post />
-        </div>
+        </div> */}
       </div>
       <Widgets />
       <BottomNavigation />

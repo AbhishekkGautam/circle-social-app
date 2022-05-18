@@ -16,8 +16,6 @@ export const SinglePost = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postId]);
 
-  console.log(singlePost, singlePostStatus);
-
   return (
     <main className="min-h-screen bg-[#151F2B] flex max-w-[1500px] mx-auto">
       <Sidebar />

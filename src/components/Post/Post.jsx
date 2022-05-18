@@ -64,7 +64,7 @@ export const Post = ({ postData, singlePostPage }) => {
                 </p>
               ) : (
                 <p
-                  className="text-[#f7f9f9] text-[15px] sm:text-base mt-0.5"
+                  className="text-[#f7f9f9] text-[15px] sm:text-base mt-0.5 font-light"
                   onClick={() => navigate(`/post/${id}`)}
                 >
                   {content}

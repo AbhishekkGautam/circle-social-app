@@ -5,7 +5,6 @@ import {
   EmojiHappyIcon,
   PhotographIcon,
 } from "@heroicons/react/outline";
-// import { Picker } from "emoji-mart";
 import "emoji-mart/css/emoji-mart.css";
 import TextareaAutosize from "react-textarea-autosize";
 import {
@@ -22,10 +21,6 @@ export const Input = ({ editPostData }) => {
 
   const { token, userInfo } = useSelector(state => state.auth);
   const dispatch = useDispatch();
-
-  // const addEmoji = emoji => {
-  //   setInput(input + emoji.native);
-  // };
 
   const createPostHandler = () => {
     let postData = postContent;
@@ -47,7 +42,7 @@ export const Input = ({ editPostData }) => {
       className={`border-b border-gray-700 py-3 px-4 flex space-x-3 overflow-y-scroll scrollbar-hide`}
     >
       <img
-        src={`https://ui-avatars.com/api/?name=John+Doe`}
+        src={userInfo.avatar}
         alt="avatar"
         className="h-11 w-11 rounded-full cursor-pointer"
       />
@@ -73,20 +68,6 @@ export const Input = ({ editPostData }) => {
             <div className="icon">
               <CalendarIcon className="h-6 text-[#1d9bf0]" />
             </div>
-            {/* {showEmoji && (
-              <Picker
-                onSelect={addEmoji}
-                style={{
-                  position: "absolute",
-                  marginTop: "465px",
-                  marginLeft: -40,
-                  maxWidth: "320px",
-                  borderRadius: "20px",
-                }}
-                theme="dark"
-                set="twitter"
-              />
-            )} */}
           </div>
           <button
             className="bg-[#1d9bf0] text-white rounded-full px-4 py-1.5 font-bold shadow-md hover:bg-[#1a8cd8] disabled:cursor-default disabled:opacity-50"

@@ -4,7 +4,7 @@ import { SparklesIcon } from "@heroicons/react/outline";
 import { Input } from "../Input/Input";
 import { Post } from "../Post/Post";
 import { getAllPosts } from "../../features/posts/postSlice";
-import { getUserFeedPosts } from "../../helpers";
+import { getSortedPosts, getUserFeedPosts } from "../../helpers";
 
 export const Feed = ({ userFeed, headerTitle }) => {
   const { allPosts } = useSelector(state => state.posts);
@@ -16,7 +16,8 @@ export const Feed = ({ userFeed, headerTitle }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const userFeedPosts = getUserFeedPosts(allPosts, userInfo);
+  const userFeedPosts = getSortedPosts(getUserFeedPosts(allPosts, userInfo));
+  const exploreFeedPosts = getSortedPosts(allPosts);
 
   return (
     <div className="text-white flex-grow border-l border-r border-gray-700 max-w-[600px] sm:ml-[72px] xl:ml-[340px]">
@@ -29,13 +30,21 @@ export const Feed = ({ userFeed, headerTitle }) => {
       {userFeed && <Input />}
 
       <div className="pb-72">
-        {userFeedPosts?.map((post, id) => {
-          return (
-            <div key={id}>
-              <Post postData={post} />
-            </div>
-          );
-        })}
+        {userFeed
+          ? userFeedPosts?.map((post, id) => {
+              return (
+                <div key={id}>
+                  <Post postData={post} />
+                </div>
+              );
+            })
+          : exploreFeedPosts?.map((post, id) => {
+              return (
+                <div key={id}>
+                  <Post postData={post} />
+                </div>
+              );
+            })}
       </div>
     </div>
   );
