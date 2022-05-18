@@ -1,13 +1,24 @@
 import React from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import { useDispatch, useSelector } from "react-redux";
 import { Fragment } from "react";
 import { XIcon } from "@heroicons/react/outline";
 import { Input } from "../Input/Input";
+import { setPostModalOpen } from "../../features/posts/postSlice";
 
-export const PostModal = ({ isOpen, setIsOpen }) => {
+export const PostModal = () => {
+  const { isPostModalOpen, editPostData } = useSelector(state => state.posts);
+  const dispatch = useDispatch();
+
+  console.log(editPostData);
+
   return (
-    <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog as="div" className="fixed z-50 inset-0 pt-8" onClose={setIsOpen}>
+    <Transition.Root show={isPostModalOpen} as={Fragment}>
+      <Dialog
+        as="div"
+        className="fixed z-50 inset-0 pt-8"
+        onClose={() => dispatch(setPostModalOpen({ isOpen: false }))}
+      >
         <div className="flex items-start justify-center min-h-[800px] sm:min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
@@ -34,12 +45,12 @@ export const PostModal = ({ isOpen, setIsOpen }) => {
               <div className="flex items-center px-1.5 py-2 border-b border-gray-700">
                 <div
                   className="hoverAnimation w-9 h-9 flex items-center justify-center xl:px-0"
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => dispatch(setPostModalOpen({ isOpen: false }))}
                 >
                   <XIcon className="h-[22px] text-white" />
                 </div>
               </div>
-              <Input />
+              <Input editPostData={editPostData} />
             </div>
           </Transition.Child>
         </div>

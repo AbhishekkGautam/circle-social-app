@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../features/auth/authSlice";
 
 export const Login = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { token, isLoggedIn, authError } = useSelector(state => state.auth);
   const dispatch = useDispatch();
@@ -17,13 +17,13 @@ export const Login = () => {
   });
 
   const submitLoginFormData = () => {
-    if (email !== "" && password !== "") {
-      dispatch(loginUser({ email, password }));
+    if (username !== "" && password !== "") {
+      dispatch(loginUser({ username, password }));
     }
   };
 
   const loginCredentialsHandler = () => {
-    setEmail("adminkumar@gmail.com");
+    setUsername("adminkumar");
     setPassword("admin@123");
   };
 
@@ -40,10 +40,10 @@ export const Login = () => {
           >
             {authError && <div className="text-red-500">{authError}</div>}
             <input
-              type="email"
-              placeholder="Email address"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={e => setUsername(e.target.value)}
               required
               className="border border-gray-300 w-full p-2 rounded-[4px]"
             />

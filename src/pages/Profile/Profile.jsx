@@ -2,7 +2,6 @@ import { ArrowLeftIcon } from "@heroicons/react/outline";
 import React from "react";
 import {
   BottomNavigation,
-  Post,
   ProfileCard,
   Sidebar,
   Widgets,
@@ -20,12 +19,12 @@ export const Profile = () => {
           Profile
         </div>
         <ProfileCard />
-        <div className="pb-72">
+        {/* <div className="pb-72">
           <Post />
           <Post />
           <Post />
           <Post />
-        </div>
+        </div> */}
       </div>
       <Widgets />
       <BottomNavigation />

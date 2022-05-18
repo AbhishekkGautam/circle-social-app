@@ -12,9 +12,9 @@ const initialState = {
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
-  async ({ email, password }, { rejectWithValue }) => {
+  async ({ username, password }, { rejectWithValue }) => {
     try {
-      const res = await loginService(email, password);
+      const res = await loginService(username, password);
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

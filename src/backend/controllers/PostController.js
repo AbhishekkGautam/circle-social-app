@@ -23,7 +23,7 @@ export const getAllpostsHandler = function () {
 export const getPostHandler = function (schema, request) {
   const postId = request.params.postId;
   try {
-    const post = schema.posts.findBy({ _id: postId }).attrs;
+    const post = schema.posts.findBy({ id: postId }).attrs;
     return new Response(200, {}, { post });
   } catch (error) {
     return new Response(
@@ -90,7 +90,7 @@ export const createPostHandler = function (schema, request) {
       username: user.username,
       firstName: userData.firstName,
       lastName: userData.lastName,
-      avatarURL: userData.avatarURL,
+      avatar: userData.avatar,
       comments: [],
       createdAt: formatDate(),
       updatedAt: formatDate(),
