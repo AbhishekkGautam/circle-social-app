@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import {
   BookmarkIcon,
   ChatIcon,
@@ -7,15 +9,33 @@ import {
 } from "@heroicons/react/outline";
 import { CommentModal } from "../Modals/CommentModal";
 import { OptionsModal } from "../Modals/OptionsModal";
+import ReactTimeAgo from "react-time-ago";
+import { convertDateIntoInteger } from "../../utils";
 
-export const Post = () => {
+export const Post = ({ postData, singlePostPage }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const { userInfo } = useSelector(state => state.auth);
+  const {
+    id,
+    firstName,
+    lastName,
+    username,
+    avatar,
+    content,
+    likes,
+    comments,
+    createdAt,
+  } = postData;
+
+  const userCanEditAndDeletePost = postData.username === userInfo.username;
+  const postTime = convertDateIntoInteger(createdAt);
 
   return (
     <>
       <div className="p-3 flex cursor-pointer border-b border-gray-700 hover:bg-[#18222f] transition ease-out">
         <img
-          src="https://i.pravatar.cc/300?img=11"
+          src={avatar}
           alt="avatar"
           className="h-12 w-12 rounded-full mr-4"
         />
@@ -24,24 +44,34 @@ export const Post = () => {
             <div className="text-[#6e767d]">
               <div className="inline-block group">
                 <h4 className="inline-block font-bold text-[15px] sm:text-base text-[#f7f9f9] hover:underline">
-                  John Sharma
+                  {firstName} {lastName}
                 </h4>
                 <span className="text-sm sm:text-[15px] ml-1.5">
-                  @johnSharma
+                  @{username}
                 </span>
               </div>{" "}
               ·{" "}
               <span className="hover:underline text-sm sm:text-[15px]">
-                May 12
+                <ReactTimeAgo
+                  date={postTime}
+                  locale="en-US"
+                  timeStyle="twitter"
+                />
               </span>
-              <p className="text-[#f7f9f9] text-[15px] sm:text-base mt-0.5">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga,
-                quae? Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Velit, odit?
-              </p>
+              {singlePostPage ? (
+                <p className="text-[#f7f9f9] text-[15px] sm:text-base mt-0.5">
+                  {content}
+                </p>
+              ) : (
+                <p
+                  className="text-[#f7f9f9] text-[15px] sm:text-base mt-0.5"
+                  onClick={() => navigate(`/post/${id}`)}
+                >
+                  {content}
+                </p>
+              )}
             </div>
-
-            <OptionsModal />
+            {userCanEditAndDeletePost && <OptionsModal postData={postData} />}
           </div>
           <div className="text-[#6e767d] flex justify-between sm:w-10/12">
             <div className="flex items-center space-x-1 group">
@@ -52,7 +82,9 @@ export const Post = () => {
                 <ChatIcon className="h-5 group-hover:text-[#1d9bf0]" />
               </div>
 
-              <span className="group-hover:text-[#1d9bf0] text-sm">2</span>
+              <span className="group-hover:text-[#1d9bf0] text-sm">
+                {comments.length}
+              </span>
             </div>
 
             <div className="flex items-center space-x-1 group">
@@ -64,7 +96,7 @@ export const Post = () => {
                 className={`group-hover:text-pink-600 text-sm
                 }`}
               >
-                4
+                {likes.likeCount}
               </span>
             </div>
 

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { SidebarLink } from "./SidebarLink";
 import {
   HashtagIcon,
@@ -11,9 +11,10 @@ import {
 import { PostModal } from "../Modals/PostModal";
 import { logOut } from "../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import { setPostModalOpen } from "../../features/posts/postSlice";
 
 export const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isPostModalOpen } = useSelector(state => state.posts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -48,21 +49,21 @@ export const Sidebar = () => {
         <button
           className="hidden xl:inline ml-auto mt-2.5 bg-[#1A8CD8] text-white rounded-full w-56 h-[52px] text-lg font-bold 
 	  hover:bg-[#1d9bf0] "
-          onClick={() => setIsOpen(true)}
+          onClick={() => dispatch(setPostModalOpen({ isOpen: true }))}
         >
           Tweet
         </button>
         <div
-          className="text-[#d9d9d9] flex items-center justify-center hoverAnimation mt-auto mx-auto mb-4"
+          className="flex items-center hoverAnimation mt-auto mb-4 mx-auto xl:max-w-fit"
           onClick={logOutHandler}
         >
-          <div className="flex items-center space-x-4 px-3 text-[#d9d9d9]">
+          <div className="flex items-center space-x-4 px-1 text-[#d9d9d9]">
             <LogoutIcon className="h-6" />
             <h4 className="text-[18px] hidden xl:inline">Log out</h4>
           </div>
         </div>
       </div>
-      {isOpen && <PostModal isOpen={isOpen} setIsOpen={setIsOpen} />}
+      {isPostModalOpen && <PostModal />}
     </>
   );
 };
