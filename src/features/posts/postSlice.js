@@ -112,21 +112,27 @@ const postSlice = createSlice({
     },
     [createNewPost.fulfilled]: (state, { payload }) => {
       state.allPosts = payload;
+      toast.success("Post created successfully!");
     },
     [createNewPost.rejected]: (state, { payload }) => {
       state.postError = payload;
+      toast.error("Some error occured. Try Again.");
     },
     [editPost.fulfilled]: (state, { payload }) => {
       state.allPosts = payload;
+      toast.success("Post edited successfully!");
     },
     [editPost.rejected]: (state, { payload }) => {
       state.postError = payload;
+      toast.error("Some error occured. Try Again.");
     },
     [deletePost.fulfilled]: (state, { payload }) => {
       state.allPosts = payload;
+      toast.success("Post deleted successfully!");
     },
     [deletePost.rejected]: (state, { payload }) => {
       state.postError = payload;
+      toast.error("Some error occured. Try Again.");
     },
   },
 });
