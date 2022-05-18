@@ -2,7 +2,6 @@ import { ArrowLeftIcon } from "@heroicons/react/outline";
 import React from "react";
 import {
   BottomNavigation,
-  Post,
   ProfileCard,
   Sidebar,
   Widgets,
