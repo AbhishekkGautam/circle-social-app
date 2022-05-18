@@ -7,7 +7,7 @@ import { ToasterWrapper } from "./utils";
 import { PrivateRoute } from "./routes/PrivateRoutes";
 
 function App() {
-  const { isLoggedIn } = useSelector(state => state.auth);
+  const { token } = useSelector(state => state.auth);
   return (
     <div>
       <ToasterWrapper />
@@ -18,8 +18,8 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/explore" element={<Explore />} />
         </Route>
-        {!isLoggedIn && <Route path="/signup" element={<Signup />} />}
-        {!isLoggedIn && <Route path="/login" element={<Login />} />}
+        {!token && <Route path="/signup" element={<Signup />} />}
+        {!token && <Route path="/login" element={<Login />} />}
         <Route path="/mock" element={<Mockman />} />
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
