@@ -52,7 +52,6 @@ export function makeServer({ environment = "development" } = {}) {
       users.forEach(item =>
         server.create("user", {
           ...item,
-          bookmarks: [],
         })
       );
       posts.forEach(item => server.create("post", { ...item }));
