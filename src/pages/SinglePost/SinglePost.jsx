@@ -8,13 +8,19 @@ import { getSinglePost } from "../../features/posts/postSlice";
 export const SinglePost = () => {
   const { postId } = useParams();
   const navigate = useNavigate();
-  const { singlePost, singlePostStatus } = useSelector(state => state.posts);
   const dispatch = useDispatch();
 
+  const { singlePost, singlePostStatus, allPosts } = useSelector(
+    state => state.posts
+  );
   useEffect(() => {
     dispatch(getSinglePost(postId));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postId]);
+
+  const currentPost = allPosts?.find(post => post.id === postId);
+
+  const updatedPost = currentPost ?? singlePost;
 
   return (
     <main className="min-h-screen bg-[#151F2B] flex max-w-[1500px] mx-auto">
@@ -24,18 +30,23 @@ export const SinglePost = () => {
           <div className="hoverAnimation w-9 h-9 flex items-center justify-center xl:px-0">
             <ArrowLeftIcon
               className="h-5 text-white"
-              onClick={() => navigate("/")}
+              onClick={() => navigate(-1)}
             />
           </div>
           Tweet
         </div>
         {singlePostStatus === "success" && (
-          <Post postData={singlePost} singlePostPage />
+          <Post postData={currentPost ?? singlePost} singlePostPage />
         )}
         <div className="pb-72">
-          <Comment />
-          <Comment />
-          <Comment />
+          {singlePostStatus === "success" &&
+            updatedPost?.comments.map(comment => {
+              return (
+                <div key={comment._id}>
+                  <Comment commentData={comment} postId={updatedPost._id} />
+                </div>
+              );
+            })}
         </div>
       </div>
       <Widgets />
