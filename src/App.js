@@ -2,7 +2,15 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import Mockman from "mockman-js";
 import { useSelector } from "react-redux";
 import "./App.css";
-import { Explore, Home, Login, Profile, Signup, SinglePost } from "./pages";
+import {
+  Bookmarks,
+  Explore,
+  Home,
+  Login,
+  Profile,
+  Signup,
+  SinglePost,
+} from "./pages";
 import { ToasterWrapper } from "./utils";
 import { PrivateRoute } from "./routes/PrivateRoutes";
 
@@ -17,6 +25,7 @@ function App() {
           <Route path="/post/:postId" element={<SinglePost />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/explore" element={<Explore />} />
+          <Route path="/bookmarks" element={<Bookmarks />} />
         </Route>
         {!token && <Route path="/signup" element={<Signup />} />}
         {!token && <Route path="/login" element={<Login />} />}
