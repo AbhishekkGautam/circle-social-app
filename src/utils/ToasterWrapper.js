@@ -4,7 +4,7 @@ import { Toaster } from "react-hot-toast";
 export const ToasterWrapper = () => {
   return (
     <Toaster
-      position="top-right"
+      position="bottom-left"
       reverseOrder={false}
       toastOptions={{
         style: {
