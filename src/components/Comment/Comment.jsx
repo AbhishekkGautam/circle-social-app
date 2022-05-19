@@ -1,9 +1,17 @@
 import React from "react";
 import ReactTimeAgo from "react-time-ago";
 import { useDispatch, useSelector } from "react-redux";
-import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/outline";
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  TrashIcon,
+} from "@heroicons/react/outline";
 import { convertDateIntoInteger } from "../../utils";
-import { downvoteComment, upvoteComment } from "../../features/posts/postSlice";
+import {
+  deleteComment,
+  downvoteComment,
+  upvoteComment,
+} from "../../features/posts/postSlice";
 
 export const Comment = ({ commentData, postId }) => {
   const { _id, username, firstName, lastName, avatar, votes, text, createdAt } =
@@ -45,6 +53,14 @@ export const Comment = ({ commentData, postId }) => {
             <p className="text-[#f7f9f9] text-[15px] sm:text-base mt-0.5">
               {text}
             </p>
+          </div>
+          <div className="icon group">
+            <TrashIcon
+              className="h-5 group-hover:text-[#1d9bf0] text-[#6e767d]"
+              onClick={() => {
+                dispatch(deleteComment({ postId, commentId: _id, token }));
+              }}
+            />
           </div>
         </div>
         <div className="text-[#6e767d] grid grid-cols-3 w-4/5">
