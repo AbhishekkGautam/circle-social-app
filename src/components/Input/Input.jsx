@@ -47,13 +47,13 @@ export const Input = ({ editPostData }) => {
         className="h-11 w-11 rounded-full cursor-pointer"
       />
       <div className="w-full divide-y divide-gray-700">
-        <div className={`${postContent.content && "space-y-2.5"}`}>
+        <div className="">
           <TextareaAutosize
             value={postContent.content}
             minRows="3"
             onChange={e => setPostContent({ content: e.target.value })}
             placeholder="What's happening?"
-            className="bg-transparent outline-none border-none text-white text-xl placeholder-gray-500 tracking-wide w-full"
+            className="bg-transparent h-auto outline-none border-none text-white text-xl placeholder-gray-500 tracking-wide w-full"
           />
         </div>
         <div className="flex items-center justify-between pt-2.5">

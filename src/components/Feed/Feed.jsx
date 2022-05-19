@@ -3,21 +3,30 @@ import { useSelector, useDispatch } from "react-redux";
 import { SparklesIcon } from "@heroicons/react/outline";
 import { Input } from "../Input/Input";
 import { Post } from "../Post/Post";
-import { getAllPosts } from "../../features/posts/postSlice";
-import { getSortedPosts, getUserFeedPosts } from "../../helpers";
+import {
+  getAllBookmarkPosts,
+  getAllPosts,
+} from "../../features/posts/postSlice";
+import {
+  getBookmarkPosts,
+  getSortedPosts,
+  getUserFeedPosts,
+} from "../../helpers";
 
-export const Feed = ({ userFeed, headerTitle }) => {
-  const { allPosts } = useSelector(state => state.posts);
-  const { userInfo } = useSelector(state => state.auth);
+export const Feed = ({ headerTitle, userFeed, bookmarkPage }) => {
+  const { allPosts, bookmarkPosts } = useSelector(state => state.posts);
+  const { userInfo, token } = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllPosts());
+    dispatch(getAllBookmarkPosts(token));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const userFeedPosts = getSortedPosts(getUserFeedPosts(allPosts, userInfo));
   const exploreFeedPosts = getSortedPosts(allPosts);
+  const bookmarkFeedPosts = getBookmarkPosts(allPosts, bookmarkPosts);
 
   return (
     <div className="text-white flex-grow border-l border-r border-gray-700 max-w-[600px] sm:ml-[72px] xl:ml-[340px]">
@@ -30,21 +39,37 @@ export const Feed = ({ userFeed, headerTitle }) => {
       {userFeed && <Input />}
 
       <div className="pb-72">
-        {userFeed
-          ? userFeedPosts?.map((post, id) => {
+        {userFeed ? (
+          userFeedPosts?.map((post, id) => {
+            return (
+              <div key={id}>
+                <Post postData={post} />
+              </div>
+            );
+          })
+        ) : bookmarkPage ? (
+          bookmarkFeedPosts.length === 0 ? (
+            <div className="flex min-h-screen items-center justify-center text-gray-400">
+              No Bookmark Posts.
+            </div>
+          ) : (
+            bookmarkFeedPosts?.map((post, id) => {
               return (
                 <div key={id}>
                   <Post postData={post} />
                 </div>
               );
             })
-          : exploreFeedPosts?.map((post, id) => {
-              return (
-                <div key={id}>
-                  <Post postData={post} />
-                </div>
-              );
-            })}
+          )
+        ) : (
+          exploreFeedPosts?.map((post, id) => {
+            return (
+              <div key={id}>
+                <Post postData={post} />
+              </div>
+            );
+          })
+        )}
       </div>
     </div>
   );

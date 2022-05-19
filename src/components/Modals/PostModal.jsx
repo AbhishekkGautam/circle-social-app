@@ -10,8 +10,6 @@ export const PostModal = () => {
   const { isPostModalOpen, editPostData } = useSelector(state => state.posts);
   const dispatch = useDispatch();
 
-  console.log(editPostData);
-
   return (
     <Transition.Root show={isPostModalOpen} as={Fragment}>
       <Dialog

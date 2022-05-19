@@ -1,22 +1,36 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import ReactTimeAgo from "react-time-ago";
 import {
   BookmarkIcon,
   ChatIcon,
   HeartIcon,
   ShareIcon,
 } from "@heroicons/react/outline";
+import {
+  HeartIcon as HeartIconFilled,
+  BookmarkIcon as BookmarkIconFilled,
+} from "@heroicons/react/solid";
+import { useSelector, useDispatch } from "react-redux";
 import { CommentModal } from "../Modals/CommentModal";
 import { OptionsModal } from "../Modals/OptionsModal";
-import ReactTimeAgo from "react-time-ago";
 import { convertDateIntoInteger } from "../../utils";
+import {
+  bookmarkPost,
+  dislikePost,
+  likePost,
+  removeBookmarkPost,
+} from "../../features/posts/postSlice";
+import { checkIfPostAlreadyLiked } from "../../helpers";
 
 export const Post = ({ postData, singlePostPage }) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-  const { userInfo } = useSelector(state => state.auth);
+  const { userInfo, token } = useSelector(state => state.auth);
+  const { bookmarkPosts } = useSelector(state => state.posts);
+  const dispatch = useDispatch();
   const {
+    _id,
     id,
     firstName,
     lastName,
@@ -31,15 +45,25 @@ export const Post = ({ postData, singlePostPage }) => {
   const userCanEditAndDeletePost = postData.username === userInfo.username;
   const postTime = convertDateIntoInteger(createdAt);
 
+  const isPostAlreadyLiked = checkIfPostAlreadyLiked(likes.likedBy, userInfo);
+  const isPostAlreadyBookmarked = bookmarkPosts?.find(
+    bookmarkPostId => bookmarkPostId === _id
+  );
+
+  // console.log(
+  //   isPostAlreadyLiked,
+  //   isPostAlreadyBookmarked,
+  //   postData,
+  //   singlePost
+  // );
+
   return (
     <>
       <div className="p-3 flex cursor-pointer border-b border-gray-700 hover:bg-[#18222f] transition ease-out">
-        <img
-          src={avatar}
-          alt="avatar"
-          className="h-12 w-12 rounded-full mr-4"
-        />
-        <div className="flex flex-col space-y-2 w-full">
+        <div className="w-12">
+          <img src={avatar} alt="avatar" className="h-12 w-12 rounded-full" />
+        </div>
+        <div className="flex flex-col space-y-2 w-full ml-4">
           <div className="flex justify-between">
             <div className="text-[#6e767d]">
               <div className="inline-block group">
@@ -71,7 +95,9 @@ export const Post = ({ postData, singlePostPage }) => {
                 </p>
               )}
             </div>
-            {userCanEditAndDeletePost && <OptionsModal postData={postData} />}
+            {userCanEditAndDeletePost && !singlePostPage && (
+              <OptionsModal postData={postData} />
+            )}
           </div>
           <div className="text-[#6e767d] flex justify-between sm:w-10/12">
             <div className="flex items-center space-x-1 group">
@@ -89,11 +115,24 @@ export const Post = ({ postData, singlePostPage }) => {
 
             <div className="flex items-center space-x-1 group">
               <div className="icon group-hover:bg-pink-600 group-hover:bg-opacity-10">
-                <HeartIcon className="h-5 group-hover:text-pink-600" />
+                {isPostAlreadyLiked ? (
+                  <HeartIconFilled
+                    className="h-5 group-hover:text-pink-600 text-pink-600"
+                    onClick={() =>
+                      dispatch(dislikePost({ postId: _id, token }))
+                    }
+                  />
+                ) : (
+                  <HeartIcon
+                    className="h-5 group-hover:text-pink-600"
+                    onClick={() => dispatch(likePost({ postId: _id, token }))}
+                  />
+                )}
               </div>
 
               <span
-                className={`group-hover:text-pink-600 text-sm
+                className={`group-hover:text-pink-600 text-sm ${
+                  isPostAlreadyLiked && "text-pink-600"
                 }`}
               >
                 {likes.likeCount}
@@ -102,7 +141,24 @@ export const Post = ({ postData, singlePostPage }) => {
 
             <div className="flex items-center space-x-1 group">
               <div className="icon group-hover:bg-green-500/10">
-                <BookmarkIcon className="h-5 group-hover:text-green-500" />
+                {isPostAlreadyBookmarked ? (
+                  <BookmarkIconFilled
+                    className="h-5 group-hover:text-green-500 text-green-500"
+                    onClick={e => {
+                      e.stopPropagation();
+                      dispatch(removeBookmarkPost({ postId: _id, token }));
+                    }}
+                  />
+                ) : (
+                  <BookmarkIcon
+                    className="h-5 group-hover:text-green-500"
+                    onClick={e => {
+                      e.stopPropagation();
+
+                      dispatch(bookmarkPost({ postId: _id, token }));
+                    }}
+                  />
+                )}
               </div>
             </div>
 
@@ -112,7 +168,13 @@ export const Post = ({ postData, singlePostPage }) => {
           </div>
         </div>
       </div>
-      {isOpen && <CommentModal isOpen={isOpen} setIsOpen={setIsOpen} />}
+      {isOpen && (
+        <CommentModal
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          postData={postData}
+        />
+      )}
     </>
   );
 };
