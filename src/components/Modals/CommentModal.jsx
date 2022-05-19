@@ -1,9 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
+import TextareaAutosize from "react-textarea-autosize";
+import ReactTimeAgo from "react-time-ago";
+import { useSelector, useDispatch } from "react-redux";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { EmojiHappyIcon, XIcon } from "@heroicons/react/outline";
+import { addComment } from "../../features/posts/postSlice";
+import { useNavigate } from "react-router-dom";
+import { convertDateIntoInteger } from "../../utils";
 
-export const CommentModal = ({ isOpen, setIsOpen }) => {
+export const CommentModal = ({ isOpen, setIsOpen, postData }) => {
+  const [commentData, setCommentData] = useState({ text: "" });
+  const { token, userInfo } = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { _id, id, firstName, lastName, username, avatar, content, createdAt } =
+    postData;
+
+  const addCommentHandler = () => {
+    dispatch(addComment({ postId: _id, commentData, token }));
+    setCommentData({ text: "" });
+    setIsOpen(false);
+    navigate(`/post/${id}`);
+  };
+
+  const postTime = convertDateIntoInteger(createdAt);
+
   return (
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog as="div" className="fixed z-50 inset-0 pt-8" onClose={setIsOpen}>
@@ -43,41 +66,45 @@ export const CommentModal = ({ isOpen, setIsOpen }) => {
                   <div className="text-[#6e767b] flex gap-x-3 relative">
                     <span className="w-0.5 h-full z-[-1] absolute left-5 top-11 bg-gray-600" />
                     <img
-                      src="https://i.pravatar.cc/300?img=11"
+                      src={avatar}
                       alt="avatar"
                       className="h-12 w-12 rounded-full"
                     />
                     <div className="">
                       <div className="inline-block group">
                         <h4 className="inline-block font-bold text-[15px] sm:text-base text-[#f7f9f9] hover:underline">
-                          John Sharma
+                          {firstName} {lastName}
                         </h4>
                         <span className="text-sm sm:text-[15px] ml-1.5">
-                          @johnSharma
+                          @{username}
                         </span>
                       </div>{" "}
                       ·{" "}
                       <span className="hover:underline text-sm sm:text-[15px]">
-                        May 12
+                        <ReactTimeAgo
+                          date={postTime}
+                          locale="en-US"
+                          timeStyle="twitter"
+                        />
                       </span>
                       <p className="text-[#f7f9f9] text-[15px] sm:text-base mt-0.5">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Fuga, quae? Lorem ipsum dolor sit amet consectetur
-                        adipisicing elit. Velit, odit?
+                        {content}
                       </p>
                     </div>
                   </div>
                   <div className="mt-7 flex space-x-3 w-full">
                     <img
-                      src="https://i.pravatar.cc/300?img=1"
-                      alt=""
+                      src={userInfo.avatar}
+                      alt="avatar"
                       className="h-12 w-12 rounded-full"
                     />
                     <div className="flex-grow mt-2">
-                      <textarea
-                        rows="2"
+                      <TextareaAutosize
+                        value={commentData.text}
+                        onChange={e => setCommentData({ text: e.target.value })}
+                        minRows="3"
                         placeholder="Tweet your reply..."
-                        className="bg-transparent outline-none text-white text-lg placeholder-gray-500 tracking-wide w-full min-h-[54px]"
+                        className="bg-transparent h-auto border-none outline-none text-white text-lg placeholder-gray-500 tracking-wide w-full"
                       />
                       <div className="flex items-center justify-between pt-2.5">
                         <div className="flex items-center">
@@ -89,6 +116,8 @@ export const CommentModal = ({ isOpen, setIsOpen }) => {
                         <button
                           className="bg-[#1d9bf0] text-white rounded-full px-4 py-1.5 font-bold shadow-md hover:bg-[#1a8cd8] disabled:hover:bg-[#1d9bf0] disabled:opacity-50 disabled:cursor-default"
                           type="submit"
+                          disabled={!commentData.text.trim()}
+                          onClick={addCommentHandler}
                         >
                           Reply
                         </button>

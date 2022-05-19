@@ -4,3 +4,4 @@ export { Profile } from "./Profile/Profile";
 export { Login } from "./Login/Login";
 export { Signup } from "./Signup/Signup";
 export { Explore } from "./Explore/Explore";
+export { Bookmarks } from "./Bookmarks/Bookmarks";
