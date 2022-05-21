@@ -3,8 +3,8 @@ import toast from "react-hot-toast";
 import { loginService, signupService } from "../../services";
 
 const initialState = {
-  token: "" || JSON.parse(localStorage.getItem("token")),
-  userInfo: null || JSON.parse(localStorage.getItem("user")),
+  token: JSON.parse(localStorage.getItem("token")) || null,
+  userInfo: JSON.parse(localStorage.getItem("user")) || null,
   isLoggedIn: false,
   authStatus: "idle",
   authError: null,
@@ -81,7 +81,7 @@ const authSlice = createSlice({
       state.token = payload.encodedToken;
       state.userInfo = payload.createdUser;
       state.isLoggedIn = true;
-      localStorage.setItem("token", state.token);
+      localStorage.setItem("token", JSON.stringify(payload.encodedToken));
       localStorage.setItem("user", JSON.stringify(state.user));
       toast.success("Account created successfully!");
     },
