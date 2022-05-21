@@ -4,7 +4,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import { useDispatch, useSelector } from "react-redux";
 import { Fragment } from "react";
 import { CameraIcon, XIcon } from "@heroicons/react/outline";
-import { editUserProfile } from "../../features/users/userSlice";
+import { editUserProfile, getAllUsers } from "../../features/users/userSlice";
 
 export const EditProfileModal = ({
   isEditModalOpen,
@@ -37,6 +37,7 @@ export const EditProfileModal = ({
               token,
             })
           );
+          dispatch(getAllUsers());
         }
       };
     } else {
@@ -49,8 +50,8 @@ export const EditProfileModal = ({
           token,
         })
       );
+      dispatch(getAllUsers());
     }
-
     setIsEditModalOpen(false);
   };
 
