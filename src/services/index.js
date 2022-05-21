@@ -8,3 +8,11 @@ export {
   deletePostService,
   editPostService,
 } from "./posts/postsServices";
+
+export {
+  getAllUsersService,
+  getSingleUserService,
+  editUserProfileService,
+  followUserService,
+  unfollowUserService,
+} from "./users/usersServices";
