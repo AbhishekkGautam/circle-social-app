@@ -1,11 +1,8 @@
 export const getUserFeedPosts = (posts, loggedInUser, filterType) => {
-  let filteredPost = posts?.filter(post =>
-    loggedInUser?.following?.find(followedUser => {
-      return (
-        followedUser.username === post.username ||
-        loggedInUser.username === post.username
-      );
-    })
+  let filteredPost = posts?.filter(
+    post =>
+      post?.username === loggedInUser?.username ||
+      loggedInUser?.following?.find(ele => post?.username === ele?.username)
   );
 
   if (filterType === "Recent") {

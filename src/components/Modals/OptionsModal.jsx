@@ -22,11 +22,14 @@ export const OptionsModal = ({ postData }) => {
       <div className="icon group flex-shrink-0 ml-auto relative">
         <DotsHorizontalIcon
           className="h-5 text-[#6e767d] group-hover:text-[#1d9bf0]"
-          onClick={() => setShowOptionsModal(!showOptionsModal)}
+          onClick={e => {
+            e.stopPropagation();
+            setShowOptionsModal(!showOptionsModal);
+          }}
         />
       </div>
       {showOptionsModal && (
-        <div className="w-[180px] h-auto bg-[#1E2732] absolute top-10 right-2.5 rounded-[4px] py-2 shadow">
+        <div className="w-[180px] h-auto bg-[#1E2732] absolute top-10 right-2.5 rounded-[4px] py-2 shadow border border-gray-700">
           <div
             className="flex items-center space-x-4 px-4 py-2 text-red-500 hover:bg-white hover:bg-opacity-[0.03]"
             onClick={() => dispatch(deletePost({ postId, token }))}
