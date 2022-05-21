@@ -67,13 +67,19 @@ export const Feed = ({ headerTitle, userFeed, bookmarkPage }) => {
         ) : (
           <div className="pb-72">
             {userFeed ? (
-              userFeedPosts?.map((post, id) => {
-                return (
-                  <div key={id}>
-                    <Post postData={post} />
-                  </div>
-                );
-              })
+              userFeedPosts.length === 0 ? (
+                <div className="flex min-h-[70vh] items-center justify-center text-gray-400">
+                  Follow people to see their posts.
+                </div>
+              ) : (
+                userFeedPosts?.map((post, id) => {
+                  return (
+                    <div key={id}>
+                      <Post postData={post} />
+                    </div>
+                  );
+                })
+              )
             ) : bookmarkPage ? (
               bookmarkFeedPosts.length === 0 ? (
                 <div className="flex min-h-screen items-center justify-center text-gray-400">

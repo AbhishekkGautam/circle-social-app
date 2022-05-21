@@ -94,7 +94,7 @@ export const Post = ({ postData, singlePostPage }) => {
                 </p>
               ) : (
                 <p
-                  className="text-colorgray-50 text-[15px] sm:text-base mt-0.5 font-light"
+                  className="text-colorgray-50 text-[15px] sm:text-base mt-0.5 font-light cursor-pointer"
                   onClick={() => navigate(`/post/${id}`)}
                 >
                   {content}
