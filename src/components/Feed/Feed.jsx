@@ -12,19 +12,29 @@ import {
   getSortedPosts,
   getUserFeedPosts,
 } from "../../helpers";
+import { getAllUsers } from "../../features/users/userSlice";
+import { FilterModal } from "../Modals/FilterModal";
 
 export const Feed = ({ headerTitle, userFeed, bookmarkPage }) => {
-  const { allPosts, bookmarkPosts } = useSelector(state => state.posts);
+  const { allPosts, bookmarkPosts, filterText } = useSelector(
+    state => state.posts
+  );
   const { userInfo, token } = useSelector(state => state.auth);
+  const { allUsers } = useSelector(state => state.users);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllPosts());
+    dispatch(getAllUsers());
     dispatch(getAllBookmarkPosts(token));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch, token]);
 
-  const userFeedPosts = getSortedPosts(getUserFeedPosts(allPosts, userInfo));
+  const currentUser = allUsers?.find(
+    user => user.username === userInfo.username
+  );
+
+  const userFeedPosts = getUserFeedPosts(allPosts, currentUser, filterText);
   const exploreFeedPosts = getSortedPosts(allPosts);
   const bookmarkFeedPosts = getBookmarkPosts(allPosts, bookmarkPosts);
 
@@ -37,6 +47,12 @@ export const Feed = ({ headerTitle, userFeed, bookmarkPage }) => {
         </div>
       </div>
       {userFeed && <Input />}
+      {userFeed && (
+        <div className="border-b border-gray-700 px-4 py-3 text-[#d9d9d9] flex items-center justify-between">
+          <h4 className="text-[#1d9bf0]">{filterText}</h4>
+          <FilterModal />
+        </div>
+      )}
 
       <div className="pb-72">
         {userFeed ? (

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import ReactTimeAgo from "react-time-ago";
 import {
   BookmarkIcon,
@@ -50,18 +50,13 @@ export const Post = ({ postData, singlePostPage }) => {
     bookmarkPostId => bookmarkPostId === _id
   );
 
-  // console.log(
-  //   isPostAlreadyLiked,
-  //   isPostAlreadyBookmarked,
-  //   postData,
-  //   singlePost
-  // );
-
   return (
     <>
       <div className="p-3 flex cursor-pointer border-b border-gray-700 hover:bg-[#18222f] transition ease-out">
-        <div className="w-12">
-          <img src={avatar} alt="avatar" className="h-12 w-12 rounded-full" />
+        <div className="w-12 min-h-fit">
+          <Link to={`/profile/${username}`}>
+            <img src={avatar} alt="avatar" className="h-12 w-12 rounded-full" />
+          </Link>
         </div>
         <div className="flex flex-col space-y-2 w-full ml-4">
           <div className="flex justify-between">

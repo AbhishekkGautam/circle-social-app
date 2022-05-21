@@ -54,14 +54,16 @@ export const Comment = ({ commentData, postId }) => {
               {text}
             </p>
           </div>
-          <div className="icon group">
-            <TrashIcon
-              className="h-5 group-hover:text-[#1d9bf0] text-[#6e767d]"
-              onClick={() => {
-                dispatch(deleteComment({ postId, commentId: _id, token }));
-              }}
-            />
-          </div>
+          {userInfo?.username === username && (
+            <div className="icon group">
+              <TrashIcon
+                className="h-5 group-hover:text-[#1d9bf0] text-[#6e767d]"
+                onClick={() => {
+                  dispatch(deleteComment({ postId, commentId: _id, token }));
+                }}
+              />
+            </div>
+          )}
         </div>
         <div className="text-[#6e767d] grid grid-cols-3 w-4/5">
           <div className="flex items-center group max-w-fit">
