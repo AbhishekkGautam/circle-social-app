@@ -28,6 +28,7 @@ const initialState = {
   postError: null,
   isPostModalOpen: false,
   editPostData: {},
+  filterText: "Recent",
 };
 
 export const getAllPosts = createAsyncThunk(
@@ -206,6 +207,9 @@ const postSlice = createSlice({
       state.isPostModalOpen = payload.isOpen;
       state.editPostData = payload.editPostData;
     },
+    setFilterText: (state, { payload }) => {
+      state.filterText = payload;
+    },
   },
   extraReducers: {
     [getAllPosts.pending]: state => {
@@ -229,7 +233,6 @@ const postSlice = createSlice({
     [getSinglePost.rejected]: (state, { payload }) => {
       state.singlePostStatus = "failed";
       state.postError = payload.errors;
-      console.log(payload);
     },
     [createNewPost.fulfilled]: (state, { payload }) => {
       state.allPosts = payload;
@@ -328,5 +331,5 @@ const postSlice = createSlice({
   },
 });
 
-export const { setPostModalOpen } = postSlice.actions;
+export const { setPostModalOpen, setFilterText } = postSlice.actions;
 export default postSlice.reducer;

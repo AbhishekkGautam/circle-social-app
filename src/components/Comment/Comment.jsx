@@ -12,6 +12,8 @@ import {
   downvoteComment,
   upvoteComment,
 } from "../../features/posts/postSlice";
+import { Avatar } from "../Avatar/Avatar";
+import { Link } from "react-router-dom";
 
 export const Comment = ({ commentData, postId }) => {
   const { _id, username, firstName, lastName, avatar, votes, text, createdAt } =
@@ -29,17 +31,25 @@ export const Comment = ({ commentData, postId }) => {
   );
 
   return (
-    <div className="p-3 flex cursor-pointer border-b border-gray-700">
-      <div className="w-11">
-        <img src={avatar} alt="avatar" className="h-11 w-11 rounded-full" />
+    <div className="p-3 flex border-b border-gray-700">
+      <div className="w-12 min-h-fit">
+        <Link to={`/profile/${username}`}>
+          <Avatar
+            avatarImg={avatar}
+            firstname={firstName}
+            lastname={lastName}
+          />
+        </Link>
       </div>
       <div className="flex flex-col space-y-2 w-full ml-4">
         <div className="flex justify-between">
           <div className="text-[#6e767d]">
             <div className="inline-block group">
-              <h4 className="inline-block font-bold text-[15px] sm:text-base text-[#f7f9f9] hover:underline">
-                {firstName} {lastName}
-              </h4>
+              <Link to={`/profile/${username}`}>
+                <h4 className="inline-block font-bold text-[15px] sm:text-base text-[#f7f9f9] hover:underline">
+                  {firstName} {lastName}
+                </h4>
+              </Link>
               <span className="text-sm sm:text-[15px] ml-1.5">@{username}</span>
             </div>{" "}
             ·{" "}
@@ -54,14 +64,16 @@ export const Comment = ({ commentData, postId }) => {
               {text}
             </p>
           </div>
-          <div className="icon group">
-            <TrashIcon
-              className="h-5 group-hover:text-[#1d9bf0] text-[#6e767d]"
-              onClick={() => {
-                dispatch(deleteComment({ postId, commentId: _id, token }));
-              }}
-            />
-          </div>
+          {userInfo?.username === username && (
+            <div className="icon group">
+              <TrashIcon
+                className="h-5 group-hover:text-[#1d9bf0] text-[#6e767d]"
+                onClick={() => {
+                  dispatch(deleteComment({ postId, commentId: _id, token }));
+                }}
+              />
+            </div>
+          )}
         </div>
         <div className="text-[#6e767d] grid grid-cols-3 w-4/5">
           <div className="flex items-center group max-w-fit">

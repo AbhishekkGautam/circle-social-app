@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { ThreeDots } from "react-loader-spinner";
 import { SparklesIcon } from "@heroicons/react/outline";
 import { Input } from "../Input/Input";
 import { Post } from "../Post/Post";
@@ -12,19 +13,29 @@ import {
   getSortedPosts,
   getUserFeedPosts,
 } from "../../helpers";
+import { getAllUsers } from "../../features/users/userSlice";
+import { FilterModal } from "../Modals/FilterModal";
 
 export const Feed = ({ headerTitle, userFeed, bookmarkPage }) => {
-  const { allPosts, bookmarkPosts } = useSelector(state => state.posts);
+  const { allPosts, bookmarkPosts, filterText, postStatus } = useSelector(
+    state => state.posts
+  );
   const { userInfo, token } = useSelector(state => state.auth);
+  const { allUsers } = useSelector(state => state.users);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllPosts());
+    dispatch(getAllUsers());
     dispatch(getAllBookmarkPosts(token));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch, token]);
 
-  const userFeedPosts = getSortedPosts(getUserFeedPosts(allPosts, userInfo));
+  const currentUser = allUsers?.find(
+    user => user.username === userInfo.username
+  );
+
+  const userFeedPosts = getUserFeedPosts(allPosts, currentUser, filterText);
   const exploreFeedPosts = getSortedPosts(allPosts);
   const bookmarkFeedPosts = getBookmarkPosts(allPosts, bookmarkPosts);
 
@@ -37,38 +48,56 @@ export const Feed = ({ headerTitle, userFeed, bookmarkPage }) => {
         </div>
       </div>
       {userFeed && <Input />}
+      {userFeed && (
+        <div className="border-b border-gray-700 px-4 py-3 text-[#d9d9d9] flex items-center justify-between">
+          <h4 className="text-[#1d9bf0]">{filterText}</h4>
+          <FilterModal />
+        </div>
+      )}
 
-      <div className="pb-72">
-        {userFeed ? (
-          userFeedPosts?.map((post, id) => {
-            return (
-              <div key={id}>
-                <Post postData={post} />
-              </div>
-            );
-          })
-        ) : bookmarkPage ? (
-          bookmarkFeedPosts.length === 0 ? (
-            <div className="flex min-h-screen items-center justify-center text-gray-400">
-              No Bookmark Posts.
-            </div>
-          ) : (
-            bookmarkFeedPosts?.map((post, id) => {
-              return (
-                <div key={id}>
-                  <Post postData={post} />
-                </div>
-              );
-            })
-          )
+      <div className="">
+        {postStatus === "loading" ? (
+          <div
+            className={`flex items-center justify-center w-full ${
+              userFeed ? "min-h-[70vh]" : "min-h-screen"
+            }`}
+          >
+            <ThreeDots color="#fff" height={80} width={80} />
+          </div>
         ) : (
-          exploreFeedPosts?.map((post, id) => {
-            return (
-              <div key={id}>
-                <Post postData={post} />
-              </div>
-            );
-          })
+          <div className="pb-72">
+            {userFeed ? (
+              userFeedPosts?.map((post, id) => {
+                return (
+                  <div key={id}>
+                    <Post postData={post} />
+                  </div>
+                );
+              })
+            ) : bookmarkPage ? (
+              bookmarkFeedPosts.length === 0 ? (
+                <div className="flex min-h-screen items-center justify-center text-gray-400">
+                  No Bookmark Posts.
+                </div>
+              ) : (
+                bookmarkFeedPosts?.map((post, id) => {
+                  return (
+                    <div key={id}>
+                      <Post postData={post} />
+                    </div>
+                  );
+                })
+              )
+            ) : (
+              exploreFeedPosts?.map((post, id) => {
+                return (
+                  <div key={id}>
+                    <Post postData={post} />
+                  </div>
+                );
+              })
+            )}
+          </div>
         )}
       </div>
     </div>

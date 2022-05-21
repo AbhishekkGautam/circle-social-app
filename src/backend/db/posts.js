@@ -42,7 +42,7 @@ export const posts = [
     lastName: "Balika",
     avatar: "https://joeschmoe.io/api/v1/jeane",
     username: "adarshbalika",
-    createdAt: new Date("May 14 2022 10:02:30"),
+    createdAt: "May 14 2022",
     updatedAt: formatDate(),
     comments: [
       {
@@ -94,7 +94,7 @@ export const posts = [
     lastName: "Balika",
     avatar: "https://joeschmoe.io/api/v1/jeane",
     username: "adarshbalika",
-    createdAt: new Date("May 15 2022 10:02:30"),
+    createdAt: "May 15 2022",
     updatedAt: formatDate(),
     comments: [
       {
@@ -181,7 +181,65 @@ export const posts = [
         },
       },
     ],
-    createdAt: new Date("May 16 2022 16:02:30"),
+    createdAt: "May 16 2022 11:02:30",
+    updatedAt: formatDate(),
+  },
+  {
+    _id: uuid(),
+    content: "Tesla AI Day #2 on Aug 19. So many cool updates!",
+    likes: {
+      likeCount: 2,
+      likedBy: [
+        {
+          _id: uuid(),
+          firstName: "Abhishek",
+          lastName: "Gautam",
+          username: "abhishekgautam",
+          avatar: "https://joeschmoe.io/api/v1/james",
+        },
+        {
+          _id: uuid(),
+          firstName: "Adarsh",
+          lastName: "Balika",
+          username: "adarshbalika",
+          avatar: "https://joeschmoe.io/api/v1/jeane",
+        },
+      ],
+      dislikedBy: [],
+    },
+    firstName: "Elon",
+    lastName: "Musk",
+    username: "elonmusk",
+    avatar: "https://joeschmoe.io/api/v1/jana",
+    comments: [
+      {
+        _id: uuid(),
+        firstName: "Adarsh",
+        lastName: "Balika",
+        username: "adarshbalika",
+        avatar: "https://joeschmoe.io/api/v1/jeane",
+        createdAt: new Date("May 20 2022 18:02:30"),
+        text: "Interesting",
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+      },
+      {
+        _id: uuid(),
+        firstName: "Abhishek",
+        lastName: "Gautam",
+        username: "abhishekgautam",
+        avatar: "https://joeschmoe.io/api/v1/james",
+        text: "Wow!",
+        createdAt: new Date("May 21 2022 11:02:30"),
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+      },
+    ],
+    createdAt: "May 20 2022 16:02:30",
     updatedAt: formatDate(),
   },
 ];

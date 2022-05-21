@@ -6,7 +6,7 @@ export const SidebarLink = ({ path, Icon, text }) => {
     <NavLink
       to={path}
       className={({ isActive }) =>
-        `text-[#d9d9d9] flex items-center justify-center xl:justify-start text-xl space-x-3 hoverAnimation ${
+        `text-colorgray-100 flex items-center justify-center xl:justify-start text-xl space-x-3 hoverAnimation ${
           isActive && "font-bold text-white"
         }`
       }

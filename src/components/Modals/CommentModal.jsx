@@ -4,7 +4,7 @@ import ReactTimeAgo from "react-time-ago";
 import { useSelector, useDispatch } from "react-redux";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { EmojiHappyIcon, XIcon } from "@heroicons/react/outline";
+import { XIcon } from "@heroicons/react/outline";
 import { addComment } from "../../features/posts/postSlice";
 import { useNavigate } from "react-router-dom";
 import { convertDateIntoInteger } from "../../utils";
@@ -108,11 +108,10 @@ export const CommentModal = ({ isOpen, setIsOpen, postData }) => {
                       />
                       <div className="flex items-center justify-between pt-2.5">
                         <div className="flex items-center">
-                          <div className="icon">
+                          {/* <div className="icon">
                             <EmojiHappyIcon className="text-[#1d9bf0] h-[22px]" />
-                          </div>
+                          </div> */}
                         </div>
-                        {/* TODO: disable logic in button */}
                         <button
                           className="bg-[#1d9bf0] text-white rounded-full px-4 py-1.5 font-bold shadow-md hover:bg-[#1a8cd8] disabled:hover:bg-[#1d9bf0] disabled:opacity-50 disabled:cursor-default"
                           type="submit"

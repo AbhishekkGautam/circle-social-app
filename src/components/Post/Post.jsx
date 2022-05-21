@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import ReactTimeAgo from "react-time-ago";
 import {
   BookmarkIcon,
@@ -22,12 +22,14 @@ import {
   removeBookmarkPost,
 } from "../../features/posts/postSlice";
 import { checkIfPostAlreadyLiked } from "../../helpers";
+import { Avatar } from "../Avatar/Avatar";
 
 export const Post = ({ postData, singlePostPage }) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const { userInfo, token } = useSelector(state => state.auth);
   const { bookmarkPosts } = useSelector(state => state.posts);
+  const { allUsers } = useSelector(state => state.users);
   const dispatch = useDispatch();
   const {
     _id,
@@ -35,7 +37,6 @@ export const Post = ({ postData, singlePostPage }) => {
     firstName,
     lastName,
     username,
-    avatar,
     content,
     likes,
     comments,
@@ -50,26 +51,31 @@ export const Post = ({ postData, singlePostPage }) => {
     bookmarkPostId => bookmarkPostId === _id
   );
 
-  // console.log(
-  //   isPostAlreadyLiked,
-  //   isPostAlreadyBookmarked,
-  //   postData,
-  //   singlePost
-  // );
+  const currentUser = allUsers?.find(
+    user => user.username === postData.username
+  );
 
   return (
     <>
-      <div className="p-3 flex cursor-pointer border-b border-gray-700 hover:bg-[#18222f] transition ease-out">
-        <div className="w-12">
-          <img src={avatar} alt="avatar" className="h-12 w-12 rounded-full" />
+      <div className="p-3 flex border-b border-gray-700 hover:bg-colorgray-500 transition ease-out">
+        <div className="w-12 min-h-fit">
+          <Link to={`/profile/${username}`}>
+            <Avatar
+              avatarImg={currentUser.avatar}
+              firstname={firstName}
+              lastname={lastName}
+            />
+          </Link>
         </div>
         <div className="flex flex-col space-y-2 w-full ml-4">
           <div className="flex justify-between">
-            <div className="text-[#6e767d]">
+            <div className="text-colorgray-300">
               <div className="inline-block group">
-                <h4 className="inline-block font-bold text-[15px] sm:text-base text-[#f7f9f9] hover:underline">
-                  {firstName} {lastName}
-                </h4>
+                <Link to={`/profile/${username}`}>
+                  <h4 className="inline-block font-bold text-[15px] sm:text-base text-colorgray-50 hover:underline">
+                    {firstName} {lastName}
+                  </h4>
+                </Link>
                 <span className="text-sm sm:text-[15px] ml-1.5">
                   @{username}
                 </span>
@@ -83,12 +89,12 @@ export const Post = ({ postData, singlePostPage }) => {
                 />
               </span>
               {singlePostPage ? (
-                <p className="text-[#f7f9f9] text-[15px] sm:text-base mt-0.5">
+                <p className="text-colorgray-50 text-[15px] sm:text-base mt-0.5">
                   {content}
                 </p>
               ) : (
                 <p
-                  className="text-[#f7f9f9] text-[15px] sm:text-base mt-0.5 font-light"
+                  className="text-colorgray-50 text-[15px] sm:text-base mt-0.5 font-light"
                   onClick={() => navigate(`/post/${id}`)}
                 >
                   {content}
@@ -99,16 +105,16 @@ export const Post = ({ postData, singlePostPage }) => {
               <OptionsModal postData={postData} />
             )}
           </div>
-          <div className="text-[#6e767d] flex justify-between sm:w-10/12">
+          <div className="text-colorgray-300 flex justify-between sm:w-10/12">
             <div className="flex items-center space-x-1 group">
               <div
-                className="icon group-hover:bg-[#1d9bf0] group-hover:bg-opacity-10"
+                className="icon group-hover:text-colorblue-100 group-hover:bg-opacity-10"
                 onClick={() => setIsOpen(true)}
               >
-                <ChatIcon className="h-5 group-hover:text-[#1d9bf0]" />
+                <ChatIcon className="h-5 group-hover:text-colorblue-100" />
               </div>
 
-              <span className="group-hover:text-[#1d9bf0] text-sm">
+              <span className="group-hover:text-colorblue-100 text-sm">
                 {comments.length}
               </span>
             </div>
@@ -163,7 +169,7 @@ export const Post = ({ postData, singlePostPage }) => {
             </div>
 
             <div className="icon group">
-              <ShareIcon className="h-5 group-hover:text-[#1d9bf0]" />
+              <ShareIcon className="h-5 group-hover:text-colorblue-100" />
             </div>
           </div>
         </div>
