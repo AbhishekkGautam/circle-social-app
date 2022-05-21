@@ -1,8 +1,31 @@
+import React, { useEffect } from "react";
 import { SearchIcon } from "@heroicons/react/outline";
-import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllUsers } from "../../features/users/userSlice";
 import { WhoToFollow } from "./WhoToFollow";
 
 export const Widgets = () => {
+  const { userInfo } = useSelector(state => state.auth);
+  const { allUsers } = useSelector(state => state.users);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch]);
+
+  const currentUser = allUsers?.find(
+    user => user.username === userInfo.username
+  );
+
+  const suggestions = allUsers
+    ?.filter(
+      user =>
+        !currentUser?.following.find(
+          followedUser => followedUser.username === user?.username
+        )
+    )
+    ?.filter(user => user.username !== userInfo?.username);
+
   return (
     <div className="hidden lg:inline ml-8 xl:w-[450px] py-1 space-y-5">
       <div className="sticky top-0 py-1.5 z-50 w-11/12 xl:w-9/12 bg-[#151F2B]">
@@ -16,12 +39,22 @@ export const Widgets = () => {
         </div>
         <div className="text-[#d9d9d9] mt-5 space-y-1 bg-[#1E2732] pt-3 rounded-xl overflow-hidden">
           <h4 className="font-bold text-xl px-4 pb-2">Who to follow</h4>
-          <WhoToFollow />
-          <WhoToFollow />
-          <WhoToFollow />
-          <button className="hover:bg-white hover:bg-opacity-[0.02] px-4 py-3 cursor-pointer transition duration-200 ease-out flex items-center justify-between w-full text-[#1d9bf0] font-light">
+          {suggestions?.length === 0 ? (
+            <div className="text-gray-400 px-4 py-3">
+              No Suggestions Available
+            </div>
+          ) : (
+            suggestions?.map((user, id) => {
+              return (
+                <div key={id}>
+                  <WhoToFollow userData={user} />
+                </div>
+              );
+            })
+          )}
+          {/* <button className="hover:bg-white hover:bg-opacity-[0.02] px-4 py-3 cursor-pointer transition duration-200 ease-out flex items-center justify-between w-full text-[#1d9bf0] font-light">
             Show more
-          </button>
+          </button> */}
         </div>
       </div>
     </div>
