@@ -56,14 +56,14 @@ export const Login = () => {
               className="border border-gray-300 w-full p-2 rounded-[4px]"
             />
             <button
-              className="w-full bg-[#151515] hover:bg-opacity-95 text-white rounded-full py-2"
+              className="w-full bg-colorgray-800 hover:bg-opacity-95 text-white rounded-full py-2"
               onClick={submitLoginFormData}
             >
               Sign in
             </button>
           </form>
           <div
-            className="text-center mt-4 text-[#1d9bf0] underline cursor-pointer"
+            className="text-center mt-4 text-colorblue-100 underline cursor-pointer"
             onClick={loginCredentialsHandler}
           >
             Use test credentials
@@ -72,7 +72,7 @@ export const Login = () => {
             Don't have an account?{" "}
             <Link
               to="/signup"
-              className="text-[#1d9bf0] hover:underline cursor-pointer"
+              className="text-colorblue-100 hover:underline cursor-pointer"
             >
               Sign up
             </Link>

@@ -33,7 +33,7 @@ export const ProfileCard = ({ userDetails }) => {
   return (
     <>
       <div className="pb-3 border-b border-gray-700">
-        <div className="h-36 sm:h-40 bg-[#1a85cd]"></div>
+        <div className="h-36 sm:h-40 bg-colorblue-300"></div>
         <div className="p-4">
           <div className="flex justify-between items-start pb-4">
             {}
@@ -45,7 +45,7 @@ export const ProfileCard = ({ userDetails }) => {
             />
             {userInfo.username === username ? (
               <button
-                className="ml-auto bg-[#151F2B] hover:bg-[#273340] text-white border border-gray-500 rounded-full text-base font-bold py-1.5 px-3.5"
+                className="ml-auto bg-background hover:bg-[#273340] text-white border border-gray-500 rounded-full text-base font-bold py-1.5 px-3.5"
                 onClick={() => setIsEditModalOpen(true)}
               >
                 Edit Profile
@@ -72,13 +72,13 @@ export const ProfileCard = ({ userDetails }) => {
           </div>
           <div className="flex flex-col space-y-3">
             <div className="">
-              <h2 className="text-xl font-extrabold text-[#F7F9F9] leading-tight">
+              <h2 className="text-xl font-extrabold text-colorgray-50 leading-tight">
                 {firstName} {lastName}
               </h2>
               <span className="text-gray-500 text-[15px]">@{username}</span>
             </div>
 
-            <h4 className="text-[#F7F9F9] text-[15px]">{bio}</h4>
+            <h4 className="text-colorgray-50 text-[15px]">{bio}</h4>
             {portfolio && (
               <div className="flex items-center space-x-1">
                 <LinkIcon className="h-5 text-gray-500" />
@@ -89,11 +89,11 @@ export const ProfileCard = ({ userDetails }) => {
             )}
 
             <div className="flex items-center space-x-5">
-              <div className="text-[#F7F9F9] font-bold text-[15px] hover:underline cursor-pointer">
+              <div className="text-colorgray-50 font-bold text-[15px] hover:underline cursor-pointer">
                 {following?.length}{" "}
                 <span className="text-gray-500 font-medium">Following</span>
               </div>
-              <div className="text-[#F7F9F9] font-bold text-[15px] hover:underline cursor-pointer">
+              <div className="text-colorgray-50 font-bold text-[15px] hover:underline cursor-pointer">
                 {followers?.length}{" "}
                 <span className="text-gray-500 font-medium">Followers</span>
               </div>
