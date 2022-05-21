@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { ArrowLeftIcon } from "@heroicons/react/outline";
+import { ThreeDots } from "react-loader-spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import {
@@ -10,6 +11,7 @@ import {
   Widgets,
 } from "../../components";
 import {
+  getAllUsers,
   getSingleUser,
   getUserPostsByUsername,
   resetUserProfile,
@@ -28,13 +30,20 @@ export const Profile = () => {
     };
   }, [dispatch, username]);
 
-  const { singleUser, userPosts } = useSelector(state => state.users);
+  const { singleUser, userPosts, allUsers, singleUserStatus } = useSelector(
+    state => state.users
+  );
   const { allPosts } = useSelector(state => state.posts);
 
   useEffect(() => {
+    dispatch(getAllUsers());
     dispatch(getUserPostsByUsername({ username }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [allPosts]);
+  }, [dispatch, allPosts]);
+
+  const currentUser = allUsers?.find(
+    user => user.username === singleUser?.username
+  );
 
   return (
     <main className="min-h-screen bg-[#151F2B] flex max-w-[1500px] mx-auto">
@@ -47,18 +56,26 @@ export const Profile = () => {
               onClick={() => navigate(-1)}
             />
           </div>
-          {singleUser.firstName} {singleUser.lastName}
+          {currentUser?.firstName} {currentUser?.lastName}
         </div>
-        <ProfileCard userDetails={singleUser} />
-        <div className="pb-72">
-          {userPosts?.map((post, id) => {
-            return (
-              <div key={id}>
-                <Post postData={post} />
-              </div>
-            );
-          })}
-        </div>
+        {singleUserStatus === "loading" ? (
+          <div className="flex items-center justify-center min-h-screen w-full">
+            <ThreeDots color="#fff" height={80} width={80} />
+          </div>
+        ) : (
+          <>
+            <ProfileCard userDetails={currentUser} />
+            <div className="pb-72">
+              {userPosts?.map((post, id) => {
+                return (
+                  <div key={id}>
+                    <Post postData={post} />
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        )}
       </div>
       <Widgets />
       <BottomNavigation />

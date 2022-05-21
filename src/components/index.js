@@ -11,3 +11,4 @@ export { ProfileCard } from "./ProfileCard/ProfileCard";
 export { OptionsModal } from "./Modals/OptionsModal";
 export { EditProfileModal } from "./Modals/EditProfileModal";
 export { FilterModal } from "./Modals/FilterModal";
+export { Avatar } from "./Avatar/Avatar";
