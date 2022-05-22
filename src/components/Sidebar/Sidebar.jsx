@@ -7,8 +7,8 @@ import {
   HomeIcon,
   UserIcon,
   LogoutIcon,
-  UsersIcon,
 } from "@heroicons/react/outline";
+import { UsersIcon } from "@heroicons/react/solid";
 import { PostModal } from "../Modals/PostModal";
 import { logOut } from "../../features/auth/authSlice";
 import { Link, useNavigate } from "react-router-dom";
@@ -53,10 +53,10 @@ export const Sidebar = () => {
           Tweet
         </button>
         <div
-          className="flex items-center hoverAnimation mt-auto mb-4 mx-auto xl:max-w-fit"
+          className="flex items-center justify-center xl:justify-start hoverAnimation mt-auto mb-4 mx-auto xl:max-w-fit"
           onClick={logOutHandler}
         >
-          <div className="flex items-center space-x-4 px-1 text-colorgray-100">
+          <div className="flex items-center space-x-4 px-1 text-colorgray-100 ">
             <LogoutIcon className="h-6" />
             <h4 className="text-[18px] hidden xl:inline">Log out</h4>
           </div>
