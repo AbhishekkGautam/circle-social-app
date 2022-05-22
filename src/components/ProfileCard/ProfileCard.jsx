@@ -23,8 +23,6 @@ export const ProfileCard = ({ userDetails }) => {
   const { userInfo, token } = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
-  console.log(userDetails);
-
   useEffect(() => {
     dispatch(getAllPosts());
   }, [dispatch]);

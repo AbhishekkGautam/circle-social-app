@@ -11,12 +11,10 @@ import {
   Widgets,
 } from "../../components";
 import {
-  getAllUsers,
   getSingleUser,
   getUserPostsByUsername,
   resetUserProfile,
 } from "../../features/users/userSlice";
-import { getAllPosts } from "../../features/posts/postSlice";
 
 export const Profile = () => {
   const { username } = useParams();
@@ -43,9 +41,6 @@ export const Profile = () => {
   const currentUser = allUsers?.find(
     user => user.username === singleUser?.username
   );
-
-  // console.log(currentUser, singleUserStatus);
-  // console.log(singleUser, singleUserStatus);
 
   return (
     <main className="min-h-screen bg-background flex max-w-[1500px] mx-auto">
