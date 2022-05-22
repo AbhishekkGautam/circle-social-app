@@ -38,14 +38,14 @@ export const OptionsModal = ({ postData }) => {
             <h4 className="text-[16px]">Delete Tweet</h4>
           </div>
           <div
-            className="flex items-center space-x-4 px-4 py-2 hover:bg-white hover:bg-opacity-[0.03] cursor-pointer"
+            className="flex items-center space-x-4 px-4 py-2 hover:bg-white hover:bg-opacity-[0.03] cursor-pointer text-white"
             onClick={() =>
               dispatch(
                 setPostModalOpen({ isOpen: true, editPostData: postData })
               )
             }
           >
-            <PencilIcon className="h-5 text-white" />
+            <PencilIcon className="h-5" />
             <h4 className="text-[16px]">Edit Tweet</h4>
           </div>
         </div>

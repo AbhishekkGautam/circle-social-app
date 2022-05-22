@@ -18,10 +18,12 @@ export const ProfileCard = ({ userDetails }) => {
     portfolio,
     followers,
     following,
-  } = userDetails ?? "";
+  } = userDetails || {};
 
   const { userInfo, token } = useSelector(state => state.auth);
   const dispatch = useDispatch();
+
+  console.log(userDetails);
 
   useEffect(() => {
     dispatch(getAllPosts());
@@ -36,7 +38,6 @@ export const ProfileCard = ({ userDetails }) => {
         <div className="h-36 sm:h-40 bg-colorblue-300"></div>
         <div className="p-4">
           <div className="flex justify-between items-start pb-4">
-            {}
             <Avatar
               avatarImg={avatar}
               firstname={firstName}

@@ -16,6 +16,7 @@ import {
   getUserPostsByUsername,
   resetUserProfile,
 } from "../../features/users/userSlice";
+import { getAllPosts } from "../../features/posts/postSlice";
 
 export const Profile = () => {
   const { username } = useParams();
@@ -33,17 +34,18 @@ export const Profile = () => {
   const { singleUser, userPosts, allUsers, singleUserStatus } = useSelector(
     state => state.users
   );
-  const { allPosts } = useSelector(state => state.posts);
 
   useEffect(() => {
-    dispatch(getAllUsers());
     dispatch(getUserPostsByUsername({ username }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, allPosts]);
+  }, [dispatch]);
 
   const currentUser = allUsers?.find(
     user => user.username === singleUser?.username
   );
+
+  // console.log(currentUser, singleUserStatus);
+  // console.log(singleUser, singleUserStatus);
 
   return (
     <main className="min-h-screen bg-background flex max-w-[1500px] mx-auto">
@@ -58,7 +60,7 @@ export const Profile = () => {
           </div>
           {currentUser?.firstName} {currentUser?.lastName}
         </div>
-        {singleUserStatus === "loading" ? (
+        {singleUser.length === 0 && singleUserStatus === "loading" ? (
           <div className="flex items-center justify-center min-h-screen w-full">
             <ThreeDots color="#fff" height={80} width={80} />
           </div>

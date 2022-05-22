@@ -79,13 +79,6 @@ export const users = [
         username: "abhishekgautam",
         avatar: "https://joeschmoe.io/api/v1/james",
       },
-      {
-        _id: uuid(),
-        firstName: "Elon",
-        lastName: "Musk",
-        username: "elonmusk",
-        avatar: "https://joeschmoe.io/api/v1/jana",
-      },
     ],
     followers: [
       {
@@ -179,13 +172,6 @@ export const users = [
         lastName: "Gautam",
         username: "abhishekgautam",
         avatar: "https://joeschmoe.io/api/v1/james",
-      },
-      {
-        _id: uuid(),
-        firstName: "Admin",
-        lastName: "Kumar",
-        username: "adminkumar",
-        avatar: "https://joeschmoe.io/api/v1/joe",
       },
     ],
     bookmarks: [],
