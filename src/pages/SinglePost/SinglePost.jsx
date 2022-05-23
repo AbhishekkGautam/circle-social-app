@@ -16,7 +16,7 @@ export const SinglePost = () => {
   useEffect(() => {
     dispatch(getSinglePost(postId));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [postId]);
+  }, []);
 
   const currentPost = allPosts?.find(post => post.id === postId);
 

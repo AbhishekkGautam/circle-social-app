@@ -1,5 +1,6 @@
 export { Sidebar } from "./Sidebar/Sidebar";
 export { Feed } from "./Feed/Feed";
+export { ExploreFeed } from "./Feed/ExploreFeed";
 export { Input } from "./Input/Input";
 export { Post } from "./Post/Post";
 export { CommentModal } from "./Modals/CommentModal";
@@ -12,3 +13,4 @@ export { OptionsModal } from "./Modals/OptionsModal";
 export { EditProfileModal } from "./Modals/EditProfileModal";
 export { FilterModal } from "./Modals/FilterModal";
 export { Avatar } from "./Avatar/Avatar";
+export { UsersListModal } from "./Modals/UsersListModal";

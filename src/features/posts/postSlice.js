@@ -216,23 +216,23 @@ const postSlice = createSlice({
       state.postStatus = "loading";
     },
     [getAllPosts.fulfilled]: (state, { payload }) => {
-      state.postStatus = "success";
       state.allPosts = payload;
+      state.postStatus = "success";
     },
     [getAllPosts.rejected]: (state, { payload }) => {
-      state.postStatus = "failed";
       state.postError = payload.errors;
+      state.postStatus = "failed";
     },
     [getSinglePost.pending]: state => {
       state.singlePostStatus = "loading";
     },
     [getSinglePost.fulfilled]: (state, { payload }) => {
-      state.singlePostStatus = "success";
       state.singlePost = payload;
+      state.singlePostStatus = "success";
     },
     [getSinglePost.rejected]: (state, { payload }) => {
-      state.singlePostStatus = "failed";
       state.postError = payload.errors;
+      state.singlePostStatus = "failed";
     },
     [createNewPost.fulfilled]: (state, { payload }) => {
       state.allPosts = payload;
