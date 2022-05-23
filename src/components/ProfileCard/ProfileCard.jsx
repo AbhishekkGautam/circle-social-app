@@ -1,13 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { LinkIcon } from "@heroicons/react/outline";
 import { useSelector, useDispatch } from "react-redux";
 import { EditProfileModal } from "../Modals/EditProfileModal";
-import { followUser, unfollowUser } from "../../features/users/userSlice";
+import {
+  followUser,
+  setUsersListModal,
+  unfollowUser,
+} from "../../features/users/userSlice";
 import { getAllPosts } from "../../features/posts/postSlice";
 import { Avatar } from "../Avatar/Avatar";
+import { UsersListModal } from "../Modals/UsersListModal";
 
 export const ProfileCard = ({ userDetails }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const divRef = useRef(null);
+
   const {
     _id,
     firstName,
@@ -26,6 +33,8 @@ export const ProfileCard = ({ userDetails }) => {
   useEffect(() => {
     dispatch(getAllPosts());
   }, [dispatch]);
+
+  const { usersListModal } = useSelector(state => state.users);
 
   const isUserAlreadyFollowing = () =>
     followers?.find(user => user.username === userInfo.username);
@@ -88,11 +97,35 @@ export const ProfileCard = ({ userDetails }) => {
             )}
 
             <div className="flex items-center space-x-5">
-              <div className="text-colorgray-50 font-bold text-[15px] hover:underline cursor-pointer">
+              <div
+                ref={divRef}
+                className="text-colorgray-50 font-bold text-[15px] hover:underline cursor-pointer"
+                onClick={() =>
+                  dispatch(
+                    setUsersListModal({
+                      open: true,
+                      title: "Following",
+                      data: following,
+                    })
+                  )
+                }
+              >
                 {following?.length}{" "}
                 <span className="text-gray-500 font-medium">Following</span>
               </div>
-              <div className="text-colorgray-50 font-bold text-[15px] hover:underline cursor-pointer">
+              <div
+                ref={divRef}
+                className="text-colorgray-50 font-bold text-[15px] hover:underline cursor-pointer"
+                onClick={() =>
+                  dispatch(
+                    setUsersListModal({
+                      open: true,
+                      title: "Followers",
+                      data: followers,
+                    })
+                  )
+                }
+              >
                 {followers?.length}{" "}
                 <span className="text-gray-500 font-medium">Followers</span>
               </div>
@@ -107,6 +140,7 @@ export const ProfileCard = ({ userDetails }) => {
           profileData={userDetails}
         />
       )}
+      {usersListModal.open && <UsersListModal divRef={divRef} />}
     </>
   );
 };
