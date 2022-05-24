@@ -58,36 +58,36 @@ const authSlice = createSlice({
       state.authStatus = "loading";
     },
     [loginUser.fulfilled]: (state, { payload }) => {
-      state.authStatus = "success";
       state.token = payload.encodedToken;
       state.userInfo = payload.foundUser;
       state.isLoggedIn = true;
       localStorage.setItem("token", JSON.stringify(payload.encodedToken));
       localStorage.setItem("user", JSON.stringify(payload.foundUser));
+      state.authStatus = "success";
       toast.success(`Hello, ${payload.foundUser.firstName}. Welcome back!`, {
         icon: "👋",
       });
     },
     [loginUser.rejected]: (state, { payload }) => {
-      state.authStatus = "failed";
       state.authError = payload.errors;
+      state.authStatus = "failed";
       toast.error("Some error occured. Try Again.");
     },
     [signupUser.pending]: state => {
       state.authStatus = "loading";
     },
     [signupUser.fulfilled]: (state, { payload }) => {
-      state.authStatus = "success";
       state.token = payload.encodedToken;
       state.userInfo = payload.createdUser;
       state.isLoggedIn = true;
       localStorage.setItem("token", JSON.stringify(payload.encodedToken));
       localStorage.setItem("user", JSON.stringify(state.user));
+      state.authStatus = "success";
       toast.success("Account created successfully!");
     },
     [signupUser.rejected]: (state, { payload }) => {
-      state.authStatus = "failed";
       state.authError = payload.errors;
+      state.authStatus = "failed";
       toast.error("Some error occured. Try Again.");
     },
   },

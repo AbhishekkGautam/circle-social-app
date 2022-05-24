@@ -32,7 +32,10 @@ export const OptionsModal = ({ postData }) => {
         <div className="w-[180px] h-auto bg-[#1E2732] absolute top-10 right-2.5 rounded-[4px] py-2 shadow border border-gray-700">
           <div
             className="flex items-center space-x-4 px-4 py-2 text-red-500 hover:bg-white hover:bg-opacity-[0.03] cursor-pointer"
-            onClick={() => dispatch(deletePost({ postId, token }))}
+            onClick={() => {
+              dispatch(deletePost({ postId, token }));
+              setShowOptionsModal(false);
+            }}
           >
             <TrashIcon className="h-5" />
             <h4 className="text-[16px]">Delete Tweet</h4>

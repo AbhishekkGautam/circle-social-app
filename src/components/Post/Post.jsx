@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import ReactTimeAgo from "react-time-ago";
-import {
-  BookmarkIcon,
-  ChatIcon,
-  HeartIcon,
-  ShareIcon,
-} from "@heroicons/react/outline";
+import { BookmarkIcon, ChatIcon, HeartIcon } from "@heroicons/react/outline";
 import {
   HeartIcon as HeartIconFilled,
   BookmarkIcon as BookmarkIconFilled,
@@ -61,7 +56,7 @@ export const Post = ({ postData, singlePostPage }) => {
         <div className="w-12 min-h-fit">
           <Link to={`/profile/${username}`}>
             <Avatar
-              avatarImg={currentUser.avatar}
+              avatarImg={currentUser?.avatar}
               firstname={firstName}
               lastname={lastName}
             />
@@ -168,9 +163,9 @@ export const Post = ({ postData, singlePostPage }) => {
               </div>
             </div>
 
-            <div className="icon group">
+            {/* <div className="icon group">
               <ShareIcon className="h-5 group-hover:text-colorblue-100" />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

@@ -40,14 +40,16 @@ export const Input = ({ editPostData }) => {
 
   return (
     <div
-      className={`border-b border-gray-700 py-3 px-4 flex space-x-3 overflow-y-scroll scrollbar-hide`}
+      className={`border-b border-gray-700 py-3 px-3 flex space-x-3 overflow-y-scroll scrollbar-hide`}
     >
       <Link to={`/profile/${currentUser?.username}`}>
-        <Avatar
-          avatarImg={currentUser?.avatar}
-          firstname={currentUser?.firstName}
-          lastname={currentUser?.lastName}
-        />
+        <div className="min-h-fit">
+          <Avatar
+            avatarImg={currentUser?.avatar}
+            firstname={currentUser?.firstName}
+            lastname={currentUser?.lastName}
+          />
+        </div>
       </Link>
       <div className="w-full divide-y divide-gray-700">
         <div className="">

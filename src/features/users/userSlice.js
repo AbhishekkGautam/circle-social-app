@@ -17,6 +17,11 @@ const initialState = {
   userError: null,
   isPostModalOpen: false,
   editUserData: {},
+  usersListModal: {
+    open: false,
+    title: "",
+    data: [],
+  },
 };
 
 export const getAllUsers = createAsyncThunk(
@@ -99,40 +104,43 @@ const userSlice = createSlice({
       state.singleUser = {};
       state.userPosts = [];
     },
+    setUsersListModal: (state, { payload }) => {
+      state.usersListModal = payload;
+    },
   },
   extraReducers: {
     [getAllUsers.pending]: state => {
       state.userStatus = "loading";
     },
     [getAllUsers.fulfilled]: (state, { payload }) => {
-      state.userStatus = "success";
       state.allUsers = payload;
+      state.userStatus = "success";
     },
     [getAllUsers.rejected]: (state, { payload }) => {
-      state.userStatus = "failed";
       state.userError = payload.errors;
+      state.userStatus = "failed";
     },
     [getSingleUser.pending]: state => {
       state.singleUserStatus = "loading";
     },
     [getSingleUser.fulfilled]: (state, { payload }) => {
-      state.singleUserStatus = "success";
       state.singleUser = payload;
+      state.singleUserStatus = "success";
     },
     [getSingleUser.rejected]: (state, { payload }) => {
-      state.singleUserStatus = "failed";
       state.userError = payload.errors;
+      state.singleUserStatus = "failed";
     },
     [getUserPostsByUsername.pending]: state => {
       state.userPostsStatus = "loading";
     },
     [getUserPostsByUsername.fulfilled]: (state, { payload }) => {
-      state.userPostsStatus = "success";
       state.userPosts = payload;
+      state.userPostsStatus = "success";
     },
     [getUserPostsByUsername.rejected]: (state, { payload }) => {
-      state.userPostsStatus = "failed";
       state.userPostsError = payload.errors;
+      state.userPostsStatus = "failed";
     },
     [editUserProfile.fulfilled]: (state, { payload }) => {
       state.allUsers.map(user =>
@@ -177,5 +185,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { resetUserProfile } = userSlice.actions;
+export const { resetUserProfile, setUsersListModal } = userSlice.actions;
 export default userSlice.reducer;

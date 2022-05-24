@@ -15,6 +15,7 @@ import {
   getUserPostsByUsername,
   resetUserProfile,
 } from "../../features/users/userSlice";
+import { getSortedPosts } from "../../helpers";
 
 export const Profile = () => {
   const { username } = useParams();
@@ -23,7 +24,6 @@ export const Profile = () => {
 
   useEffect(() => {
     dispatch(getSingleUser({ username }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     return () => {
       dispatch(resetUserProfile());
     };
@@ -32,15 +32,18 @@ export const Profile = () => {
   const { singleUser, userPosts, allUsers, singleUserStatus } = useSelector(
     state => state.users
   );
+  const { allPosts } = useSelector(state => state.posts);
 
   useEffect(() => {
     dispatch(getUserPostsByUsername({ username }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
+  }, [dispatch, allPosts]);
 
   const currentUser = allUsers?.find(
     user => user.username === singleUser?.username
   );
+
+  const sortedUserPosts = getSortedPosts(userPosts);
 
   return (
     <main className="min-h-screen bg-background flex max-w-[1500px] mx-auto">
@@ -55,7 +58,7 @@ export const Profile = () => {
           </div>
           {currentUser?.firstName} {currentUser?.lastName}
         </div>
-        {singleUser.length === 0 && singleUserStatus === "loading" ? (
+        {singleUserStatus === "loading" ? (
           <div className="flex items-center justify-center min-h-screen w-full">
             <ThreeDots color="#fff" height={80} width={80} />
           </div>
@@ -63,13 +66,19 @@ export const Profile = () => {
           <>
             <ProfileCard userDetails={currentUser} />
             <div className="pb-72">
-              {userPosts?.map((post, id) => {
-                return (
-                  <div key={id}>
-                    <Post postData={post} />
-                  </div>
-                );
-              })}
+              {sortedUserPosts.length === 0 ? (
+                <div className="flex pt-12 items-center justify-center text-gray-400">
+                  Tweet something to see your posts.
+                </div>
+              ) : (
+                sortedUserPosts?.map((post, id) => {
+                  return (
+                    <div key={id}>
+                      <Post postData={post} />
+                    </div>
+                  );
+                })
+              )}
             </div>
           </>
         )}
