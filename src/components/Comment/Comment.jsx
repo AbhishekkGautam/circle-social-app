@@ -75,6 +75,7 @@ export const Comment = ({ commentData, postId }) => {
             </div>
           )}
         </div>
+
         <div className="text-[#6e767d] grid grid-cols-3 w-4/5">
           <div className="flex items-center group max-w-fit">
             <div className="icon group-hover:bg-green-500 group-hover:bg-opacity-10">

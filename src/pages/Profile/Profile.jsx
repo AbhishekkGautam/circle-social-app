@@ -33,6 +33,7 @@ export const Profile = () => {
     state => state.users
   );
   const { allPosts } = useSelector(state => state.posts);
+  const { userInfo } = useSelector(state => state.auth);
 
   useEffect(() => {
     dispatch(getUserPostsByUsername({ username }));
@@ -66,9 +67,15 @@ export const Profile = () => {
           <>
             <ProfileCard userDetails={currentUser} />
             <div className="pb-72">
-              {sortedUserPosts.length === 0 ? (
+              {sortedUserPosts.length === 0 &&
+              userInfo?.username === username ? (
                 <div className="flex pt-12 items-center justify-center text-gray-400">
                   Tweet something to see your posts.
+                </div>
+              ) : sortedUserPosts.length === 0 &&
+                userInfo.username !== username ? (
+                <div className="flex pt-12 items-center justify-center text-gray-400">
+                  No Posts Available.
                 </div>
               ) : (
                 sortedUserPosts?.map((post, id) => {

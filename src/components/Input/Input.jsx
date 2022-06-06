@@ -55,7 +55,7 @@ export const Input = ({ editPostData }) => {
         <div className="">
           <TextareaAutosize
             value={postContent.content}
-            minRows="3"
+            minRows="2"
             onChange={e => setPostContent({ content: e.target.value })}
             placeholder="What's happening?"
             className="bg-transparent h-auto outline-none border-none text-white text-xl placeholder-gray-500 tracking-wide w-full"
