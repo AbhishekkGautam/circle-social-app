@@ -50,43 +50,71 @@ export const Post = ({ postData, singlePostPage }) => {
     user => user.username === postData.username
   );
 
+  console.log();
+
   return (
     <>
       <div className="p-3 flex border-b border-gray-700 hover:bg-colorgray-500 transition ease-out">
-        <div className="w-12 min-h-fit">
-          <Link to={`/profile/${username}`}>
+        <Link to={`/profile/${username}`}>
+          <div className="w-12 min-h-fit">
             <Avatar
               avatarImg={currentUser?.avatar}
               firstname={firstName}
               lastname={lastName}
             />
-          </Link>
-        </div>
+          </div>
+        </Link>
+
         <div className="flex flex-col space-y-2 w-full ml-4">
-          <div className="flex justify-between">
+          <div
+            className={`${singlePostPage ? "flex-1" : "flex"} justify-between`}
+          >
             <div className="text-colorgray-300">
-              <div className="inline-block group">
-                <Link to={`/profile/${username}`}>
-                  <h4 className="inline-block font-bold text-[15px] sm:text-base text-colorgray-50 hover:underline">
-                    {firstName} {lastName}
-                  </h4>
-                </Link>
-                <span className="text-sm sm:text-[15px] ml-1.5">
-                  @{username}
-                </span>
-              </div>{" "}
-              ·{" "}
-              <span className="hover:underline text-sm sm:text-[15px]">
-                <ReactTimeAgo
-                  date={postTime}
-                  locale="en-US"
-                  timeStyle="twitter"
-                />
-              </span>
               {singlePostPage ? (
-                <p className="text-colorgray-50 text-[15px] sm:text-base mt-0.5">
-                  {content}
-                </p>
+                <div className={`group flex flex-col`}>
+                  <Link to={`/profile/${username}`}>
+                    <h4 className="inline-block font-bold text-[15px] sm:text-base text-colorgray-50 hover:underline">
+                      {firstName} {lastName}
+                    </h4>
+                  </Link>
+                  <span className="text-sm sm:text-[15px]">@{username}</span>
+                </div>
+              ) : (
+                <>
+                  <div className={`inline-block group`}>
+                    <Link to={`/profile/${username}`}>
+                      <h4 className="inline-block font-bold text-[15px] sm:text-base text-colorgray-50 hover:underline">
+                        {firstName} {lastName}
+                      </h4>
+                    </Link>
+                    <span className="text-sm sm:text-[15px] ml-1.5">
+                      @{username}
+                    </span>
+                  </div>{" "}
+                  ·{" "}
+                  <span className="hover:underline text-sm sm:text-[15px]">
+                    <ReactTimeAgo
+                      date={postTime}
+                      locale="en-US"
+                      timeStyle="twitter"
+                    />
+                  </span>
+                </>
+              )}
+
+              {singlePostPage ? (
+                <>
+                  <p className="text-colorgray-50 text-[16px] sm:text-lg mt-3">
+                    {content}
+                  </p>
+                  <div className="hover:underline text-sm sm:text-[15px] mt-4 pb-3 border-b border-gray-700">
+                    {new Date(postTime).toLocaleString("en-US", {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
+                  </div>
+                </>
               ) : (
                 <p
                   className="text-colorgray-50 text-[15px] sm:text-base mt-0.5 font-light cursor-pointer"

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import Lottie from "lottie-react";
+import socialMediaAnimation from "../../assets/social-media-network.json";
 import { loginUser } from "../../features/auth/authSlice";
 
 export const Login = () => {
@@ -25,58 +27,69 @@ export const Login = () => {
   const loginCredentialsHandler = () => {
     setUsername("adminkumar");
     setPassword("admin@123");
+    dispatch(loginUser({ username: "adminkumar", password: "admin@123" }));
   };
 
   return (
-    <main className="min-h-screen bg-gray-100 max-w-full mx-auto flex items-center justify-center">
-      <div className="bg-white w-[350px] sm:w-[450px] h-auto px-6 py-16 rounded-lg">
-        <div className="sm:w-10/12 mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center pb-12">
-            Sign in to Circle
-          </h2>
-          <form
-            className="flex flex-col space-y-5"
-            onSubmit={e => e.preventDefault()}
-          >
-            {authError && <div className="text-red-500">{authError}</div>}
-            <input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={e => setUsername(e.target.value)}
-              required
-              className="border border-gray-300 w-full p-2 rounded-[4px]"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              required
-              className="border border-gray-300 w-full p-2 rounded-[4px]"
-            />
-            <button
-              className="w-full bg-colorgray-800 hover:bg-opacity-95 text-white rounded-full py-2"
-              onClick={submitLoginFormData}
+    <main className="min-h-screen bg-white sm:bg-gray-100 max-w-full flex flex-col lg:flex-row">
+      <div className="lg:w-2/5 bg-white flex items-center justify-center md:py-6 lg:py-0">
+        <Lottie
+          animationData={socialMediaAnimation}
+          loop={true}
+          autoPlay={true}
+          className="h-[280px] md:h-[380px] lg:h-[430px]"
+        />
+      </div>
+      <div className="flex items-center justify-center w-full lg:w-3/5 sm:py-12 lg:py-0">
+        <div className="bg-white w-[350px] sm:w-[450px] h-auto px-6 py-8 sm:py-16 rounded-lg">
+          <div className="sm:w-10/12 mx-auto">
+            <h2 className="text-2xl sm:text-3xl font-bold text-center pb-8 sm:pb-12">
+              Sign in to Circle
+            </h2>
+            <form
+              className="flex flex-col space-y-5"
+              onSubmit={e => e.preventDefault()}
             >
-              Sign in
-            </button>
-          </form>
-          <div
-            className="text-center mt-4 text-colorblue-100 underline cursor-pointer"
-            onClick={loginCredentialsHandler}
-          >
-            Use test credentials
+              {authError && <div className="text-red-500">{authError}</div>}
+              <input
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={e => setUsername(e.target.value)}
+                required
+                className="border border-gray-300 w-full p-2 rounded-[4px]"
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                required
+                className="border border-gray-300 w-full p-2 rounded-[4px]"
+              />
+              <button
+                className="w-full bg-colorgray-800 hover:bg-opacity-95 text-white rounded-full py-2"
+                onClick={submitLoginFormData}
+              >
+                Sign in
+              </button>
+            </form>
+            <div
+              className="text-center mt-4 text-colorblue-100 underline cursor-pointer"
+              onClick={loginCredentialsHandler}
+            >
+              Use test credentials
+            </div>
+            <h4 className="text-center pt-8 text-gray-500">
+              Don't have an account?{" "}
+              <Link
+                to="/signup"
+                className="text-colorblue-100 hover:underline cursor-pointer"
+              >
+                Sign up
+              </Link>
+            </h4>
           </div>
-          <h4 className="text-center pt-8 text-gray-500">
-            Don't have an account?{" "}
-            <Link
-              to="/signup"
-              className="text-colorblue-100 hover:underline cursor-pointer"
-            >
-              Sign up
-            </Link>
-          </h4>
         </div>
       </div>
     </main>

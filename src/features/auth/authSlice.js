@@ -3,8 +3,8 @@ import toast from "react-hot-toast";
 import { loginService, signupService } from "../../services";
 
 const initialState = {
-  token: JSON.parse(localStorage.getItem("token")) || null,
-  userInfo: JSON.parse(localStorage.getItem("user")) || null,
+  token: JSON.parse(localStorage.getItem("circle-token")) || null,
+  userInfo: JSON.parse(localStorage.getItem("circle-user")) || null,
   isLoggedIn: false,
   authStatus: "idle",
   authError: null,
@@ -61,8 +61,11 @@ const authSlice = createSlice({
       state.token = payload.encodedToken;
       state.userInfo = payload.foundUser;
       state.isLoggedIn = true;
-      localStorage.setItem("token", JSON.stringify(payload.encodedToken));
-      localStorage.setItem("user", JSON.stringify(payload.foundUser));
+      localStorage.setItem(
+        "circle-token",
+        JSON.stringify(payload.encodedToken)
+      );
+      localStorage.setItem("circle-user", JSON.stringify(payload.foundUser));
       state.authStatus = "success";
       toast.success(`Hello, ${payload.foundUser.firstName}. Welcome back!`, {
         icon: "👋",
@@ -80,8 +83,11 @@ const authSlice = createSlice({
       state.token = payload.encodedToken;
       state.userInfo = payload.createdUser;
       state.isLoggedIn = true;
-      localStorage.setItem("token", JSON.stringify(payload.encodedToken));
-      localStorage.setItem("user", JSON.stringify(state.user));
+      localStorage.setItem(
+        "circle-token",
+        JSON.stringify(payload.encodedToken)
+      );
+      localStorage.setItem("circle-user", JSON.stringify(state.user));
       state.authStatus = "success";
       toast.success("Account created successfully!");
     },

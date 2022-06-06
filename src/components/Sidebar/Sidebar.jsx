@@ -23,8 +23,8 @@ export const Sidebar = () => {
   const logOutHandler = () => {
     dispatch(logOut());
     navigate("/login");
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    localStorage.removeItem("circle-token");
+    localStorage.removeItem("circle-user");
   };
 
   return (
@@ -32,7 +32,7 @@ export const Sidebar = () => {
       <div className="hidden sm:flex flex-col items-center xl:items-start xl:w-[320px] p-2 fixed h-full ">
         <Link to="/">
           <div className="flex items-center justify-center h-14 w-14 hoverAnimation xl:ml-[78px]">
-            <UsersIcon className="text-colorgray-100 h-7 w-7" />
+            <UsersIcon className="text-colorblue-100 h-7 w-7" />
           </div>
         </Link>
         <div className="space-y-2.5 mt-4 mb-2.5 xl:ml-[78px]">

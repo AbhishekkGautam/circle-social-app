@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ThreeDots } from "react-loader-spinner";
-import { SparklesIcon } from "@heroicons/react/outline";
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  TrendingUpIcon,
+} from "@heroicons/react/outline";
 import { Input } from "../Input/Input";
 import { Post } from "../Post/Post";
 import {
@@ -36,16 +40,25 @@ export const Feed = ({ headerTitle, userFeed }) => {
 
   return (
     <div className="text-white flex-grow border-l border-r border-gray-700 md:max-w-[600px] sm:ml-[72px] xl:ml-[340px]">
-      <div className="text-[#d9d9d9] flex items-center sm:justify-between py-2 px-4 sticky top-0 z-50 bg-[rgba(21, 32, 43, 0.75)] backdrop-blur-md backdrop-brightness-100">
+      <div className="text-[#d9d9d9] flex items-center sm:justify-between py-3 px-4 sticky top-0 z-50 bg-[rgba(21, 32, 43, 0.75)] backdrop-blur-md backdrop-brightness-100">
         <h2 className="text-lg sm:text-xl font-bold">{headerTitle}</h2>
-        <div className="hoverAnimation w-9 h-9 flex items-center justify-center xl:px-0 ml-auto">
+        {/* <div className="hoverAnimation w-9 h-9 flex items-center justify-center xl:px-0 ml-auto">
           <SparklesIcon className="h-5 text-white" />
-        </div>
+        </div> */}
       </div>
       {userFeed && <Input />}
       {userFeed && (
         <div className="border-b border-gray-700 px-4 py-3 text-[#d9d9d9] flex items-center justify-between">
-          <h4 className="text-[#1d9bf0]">{filterText}</h4>
+          <div className="flex items-center space-x-2 text-[#1d9bf0]">
+            {filterText === "Trending" ? (
+              <TrendingUpIcon className="h-4" />
+            ) : filterText === "Recent" ? (
+              <ArrowUpIcon className="h-4" />
+            ) : (
+              <ArrowDownIcon className="h-4" />
+            )}
+            <h4 className="text-[#1d9bf0] text-sm">{filterText}</h4>
+          </div>
           <FilterModal />
         </div>
       )}
