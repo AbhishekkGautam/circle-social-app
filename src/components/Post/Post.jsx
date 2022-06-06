@@ -53,15 +53,16 @@ export const Post = ({ postData, singlePostPage }) => {
   return (
     <>
       <div className="p-3 flex border-b border-gray-700 hover:bg-colorgray-500 transition ease-out">
-        <div className="w-12 min-h-fit">
-          <Link to={`/profile/${username}`}>
+        <Link to={`/profile/${username}`}>
+          <div className="w-12 min-h-fit">
             <Avatar
               avatarImg={currentUser?.avatar}
               firstname={firstName}
               lastname={lastName}
             />
-          </Link>
-        </div>
+          </div>
+        </Link>
+
         <div className="flex flex-col space-y-2 w-full ml-4">
           <div className="flex justify-between">
             <div className="text-colorgray-300">

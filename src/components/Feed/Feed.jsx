@@ -1,7 +1,12 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ThreeDots } from "react-loader-spinner";
-import { SparklesIcon } from "@heroicons/react/outline";
+import {
+  SparklesIcon,
+  ArrowDownIcon,
+  ArrowUpIcon,
+  TrendingUpIcon,
+} from "@heroicons/react/outline";
 import { Input } from "../Input/Input";
 import { Post } from "../Post/Post";
 import {
@@ -45,7 +50,16 @@ export const Feed = ({ headerTitle, userFeed }) => {
       {userFeed && <Input />}
       {userFeed && (
         <div className="border-b border-gray-700 px-4 py-3 text-[#d9d9d9] flex items-center justify-between">
-          <h4 className="text-[#1d9bf0]">{filterText}</h4>
+          <div className="flex items-center space-x-2 text-[#1d9bf0]">
+            {filterText === "Trending" ? (
+              <TrendingUpIcon className="h-5" />
+            ) : filterText === "Recent" ? (
+              <ArrowUpIcon className="h-5" />
+            ) : (
+              <ArrowDownIcon className="h-5" />
+            )}
+            <h4 className="text-[#1d9bf0]">{filterText}</h4>
+          </div>
           <FilterModal />
         </div>
       )}

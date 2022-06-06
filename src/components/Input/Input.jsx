@@ -40,10 +40,10 @@ export const Input = ({ editPostData }) => {
 
   return (
     <div
-      className={`border-b border-gray-700 py-3 px-3 flex space-x-3 overflow-y-scroll scrollbar-hide`}
+      className={`border-b border-gray-700 py-3 px-3 flex overflow-y-scroll scrollbar-hide`}
     >
       <Link to={`/profile/${currentUser?.username}`}>
-        <div className="min-h-fit">
+        <div className="min-h-fit w-12">
           <Avatar
             avatarImg={currentUser?.avatar}
             firstname={currentUser?.firstName}
@@ -51,7 +51,7 @@ export const Input = ({ editPostData }) => {
           />
         </div>
       </Link>
-      <div className="w-full divide-y divide-gray-700">
+      <div className="w-full ml-4">
         <div className="">
           <TextareaAutosize
             value={postContent.content}

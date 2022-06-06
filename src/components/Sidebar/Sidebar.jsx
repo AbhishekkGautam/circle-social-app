@@ -23,8 +23,8 @@ export const Sidebar = () => {
   const logOutHandler = () => {
     dispatch(logOut());
     navigate("/login");
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    localStorage.removeItem("circle-token");
+    localStorage.removeItem("circle-user");
   };
 
   return (
