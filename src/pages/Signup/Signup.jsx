@@ -57,9 +57,9 @@ export const Signup = () => {
         />
       </div>
       <div className="flex items-center justify-center w-full lg:w-3/5 sm:py-12 lg:py-0">
-        <div className="bg-white w-[350px] sm:w-[450px] h-auto px-6 py-16 pt-6 sm:pt-16 rounded-xl">
+        <div className="bg-white w-[350px] sm:w-[450px] h-auto px-6 py-16 pt-8 sm:pt-16 rounded-xl">
           <div className="sm:w-10/12 mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-bold text-center pb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold text-center pb-8 sm:pb-12">
               Join Circle today
             </h2>
             <form

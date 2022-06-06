@@ -37,13 +37,13 @@ export const Login = () => {
           animationData={socialMediaAnimation}
           loop={true}
           autoPlay={true}
-          className="h-[300px] md:h-[380px] lg:h-[430px]"
+          className="h-[280px] md:h-[380px] lg:h-[430px]"
         />
       </div>
       <div className="flex items-center justify-center w-full lg:w-3/5 sm:py-12 lg:py-0">
-        <div className="bg-white w-[350px] sm:w-[450px] h-auto px-6 py-16 rounded-lg">
+        <div className="bg-white w-[350px] sm:w-[450px] h-auto px-6 py-8 sm:py-16 rounded-lg">
           <div className="sm:w-10/12 mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-bold text-center pb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold text-center pb-8 sm:pb-12">
               Sign in to Circle
             </h2>
             <form
