@@ -6,3 +6,4 @@
 - added few more mock data of users & posts.
 - changed the post alignment of single post page.
 - refactor error message on profile page.
+- highlight sidebar active link.

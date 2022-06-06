@@ -223,6 +223,13 @@ export const users = [
         username: "abhishekgautam",
         avatar: "https://joeschmoe.io/api/v1/james",
       },
+      {
+        _id: uuid(),
+        firstName: "Admin",
+        lastName: "Kumar",
+        username: "adminkumar",
+        avatar: "https://joeschmoe.io/api/v1/joe",
+      },
     ],
     bookmarks: [],
   },

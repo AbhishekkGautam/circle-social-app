@@ -7,7 +7,7 @@ export const SidebarLink = ({ path, Icon, text }) => {
       to={path}
       className={({ isActive }) =>
         `text-colorgray-100 flex items-center justify-center xl:justify-start text-xl space-x-3 hoverAnimation ${
-          isActive && "font-bold text-white"
+          isActive && "font-bold text-blue-300"
         }`
       }
     >
